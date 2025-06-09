@@ -5,7 +5,6 @@
 #include <functional>  //*std::function,placeholders::_1
 #include <memory>   //* shared_ptr
 #include "numcpp.h"
-// #include "kernsearch.h"
 //* ---pyrallis--- 
 #include <stdio.h> 
 #include <unistd.h> 
