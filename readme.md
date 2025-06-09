@@ -1,11 +1,15 @@
 
 ### simple binary matrix library
 
-- it only have 2D matrix (vector<vector<int>>) and 1D vector<int>
+It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
+
+#### functions
 - nc_init.cpp: eye/arange/zeros_vec/zeros_mat
 - nc_rand.cpp: generate_gaussian_noise (mean, stddev) 
 - numcpp.cpp : kron/setdiff1d/bin_mat_sum/bin_mat_mul/bin_to_dec
   - dec_to_bin/ mat2comp_vec/comp_vec2mat/ swap_row/ add_row
+
+#### exmaples
 ```sh
 python run.py --opt 0 --delete False
 ```
