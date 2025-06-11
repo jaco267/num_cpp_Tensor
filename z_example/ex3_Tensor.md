@@ -13,7 +13,7 @@ and the shape of the data
 This can be done by   
 ```cpp
 vector<float> zz2 = {0.1,0.3,0.2,-1.1};
-vector<int> shape = {4,4};
+vector<int> shape = {2,2};
 Tensor<float> v1 {zz2,shape};
 ```
 or 
