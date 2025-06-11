@@ -9,7 +9,8 @@ It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
 - numcpp.cpp : kron/setdiff1d/bin_mat_sum/bin_mat_mul/bin_to_dec
   - dec_to_bin/ mat2comp_vec/comp_vec2mat/ swap_row/ add_row
 
-### exmaples (for more example, see z_example/ folder)
+### exmaples 
+<!-- - (for more example, see z_example/ folder) -->
 - there is --opt 0~3
 ####  init 2D matrix : zeros, eye
 ```sh
