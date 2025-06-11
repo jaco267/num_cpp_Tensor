@@ -123,11 +123,28 @@ int main(int argc, char *argv[]){
     Tensor<int> v0 {zz,shape};
     vector<float> zz2 = {0.1,0.3,0.2,-1.1};
     Tensor<float> v1 {zz2,{2,2}};
+    cout<<"v1\n";
+    v1.info();
     cout<<"v1[0,0]:"<<v1.index({0,0})<<endl;
     vector<int> id0 = {0,1};
     cout<<"v1[0,1]:"<<v1.index(id0)<<endl;
+    cout<<"----slice---"<<endl;
+    Tensor<float> vout = v1.slice(/*dim*/1,1,2);
+    vout.info();
+    vector<int> new_shape = {2,-1};
+    cout<<"reshape:"<<endl;
+    Tensor<float> newv1 = v1.reshape(new_shape);
+    v1.info();
+    newv1.info();
+    mat<float> mm = newv1.toMat();
+    cout<<"matrix version:\n";
+    print_mat(mm);
+    Tensor<float> newv2 = v1.reshape({-1});
+    newv2.info();
+    vector<float> vv = newv2.toVec();
+    cout<<"vector version:";
+    print_vec(vv);
   }
-
     return 0;
 }
 

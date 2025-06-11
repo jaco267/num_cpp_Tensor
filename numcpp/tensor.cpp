@@ -19,7 +19,45 @@ Tensor<T>::Tensor(vector<T>& data,const vector<int>&shape
   for(int i = ndim_ - 1; i >= 0; i--){
     strides_[i] = stride; stride *= shape_[i];
   }
-  info();
+}
+template <typename T>
+Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
+  int total_elements = size_;
+  int minus_count=0;
+  int inferred_dim = -100;
+  int known_dims_product = 1;
+  
+  for(int i=0;i<new_shape.size();i++){
+    int dim = new_shape[i];
+    if (dim==-1){
+      minus_count++;
+      inferred_dim = dim;
+    }else{
+      known_dims_product *= dim;
+    }
+  }
+  if (minus_count>1){
+     throw std::invalid_argument( "Only one dimension can be inferred (set to -1)" );
+  }
+  //* Calculate the inferred dimension if -1 is present
+  if (inferred_dim == -1){
+    int inferred_dim_size= total_elements / known_dims_product; 
+    for(int i=0;i<new_shape.size();i++){
+      int dim = new_shape[i];
+      if (dim == -1){
+        new_shape[i] = inferred_dim_size;
+      }
+    }
+  }
+  int new_ndim = new_shape.size(); 
+
+  int size = 1;
+  for(int i=0;i<new_shape.size();i++){
+    size*=new_shape[i];
+  }
+  ASSERT_THROW(size==size_,"Cannot reshape tensor. Total number of elements in new shape does not match the current size of the tensor");
+  Tensor<T> return_ten {data_,new_shape};
+  return return_ten;
 }
 template <typename T>
 T Tensor<T>::index(vector<int> indices){
@@ -31,28 +69,68 @@ T Tensor<T>::index(vector<int> indices){
   result = data_[index];  
   return result;
 }
-  
+template <typename T>
+Tensor<T> Tensor<T>::slice(int dim, int start, int end){
+  // check for valid dimension 
+  if (dim<0 || dim >= shape_.size()){
+     throw std::out_of_range( "Dimension out of range" );
+  }
+  // check for valid start/end indices 
+  if (start<0 ||end < 0|| end > shape_[dim]||start>=end){
+    throw std::out_of_range("Invalid start or end index");
+  }
+  // Create a copy of the current shape and modify the specified dimension
+  vector<int> new_shape = shape_;
+  new_shape[dim] = end - start;
+  // Calculate total elements in the new tensor
+  size_t new_size = 1;
+  for (int s : new_shape) { new_size *= s;}
+  // Create new storage
+  vector<T> new_data;
+  new_data.reserve(new_size); //todo reserve vs resize?  
+  // Create index vector for iteration
+  vector<int> indices(shape_.size(), 0);  //* indices for current iteration's row and col 
+  //*ex. shape(2,2) dim 1 start 0 end 1   stride  = 2,1  -> original idx = 0 : d=0   0* 
+  // Iterate through all elements and copy the ones in the slice
+  for (size_t i = 0; i < new_size; ++i) {
+      // Calculate the original tensor's index
+      size_t original_idx = 0;
+      for (int d = 0; d < shape_.size(); ++d) {
+          if (d == dim) {
+              original_idx += (indices[d] + start) * strides_[d];
+          } else {
+              original_idx += indices[d] * strides_[d];
+          }
+      }
+      // Add the element to new storage
+      new_data.push_back(data_[original_idx]);
+      // Update indices (row-major order)  indices 000 -> 001  -> 010 -> ...
+      for (int d = shape_.size() - 1; d >= 0; --d) {
+          indices[d]++;
+          if (indices[d] < new_shape[d]) {break;}
+          indices[d] = 0;
+      }
+  }
+  ASSERT_THROW(new_data.size()==new_size,"new_data.size()==new_size");
+  // cout<<"slice:(dim="<<dim<<","<<start<<","<<end<<"):";  print_vec(new_data);
+  // cout<<"new_shape:"; print_vec(new_shape);
+  Tensor<T> v0 {new_data, new_shape};
+  return v0;
+}  
 template <typename T>
 void Tensor<T>::info(){
-  cout<<"shape:";
-  print_vec(shape_);
-  cout<<"n_dim:"<<ndim_<<endl;
-  cout<<"size:"<<size_<<endl;
-  cout<<"strides:";
-  print_vec(strides_);
-  cout<<"data:"<<endl;
   print();
+  cout<<" n_dim:"<<ndim_<<", size:"<<size_<<", strides:";
+  print_vec(strides_,0);
+  cout<<", shape:"; print_vec(shape_);
 }
 template <typename T>
 void Tensor<T>::print(){
   vector<int> index = zeros_vec(ndim_);
-  cout<<"index:"; 
-  print_vec(index);
   string result = "tensor([\n";
   result+=print_recur(0,index);
   result+="\n])";
-  cout<<result<<endl;
-
+  cout<<result;
 }
 template <typename T>
 string Tensor<T>::print_recur(int depth, vector<int> ind){
@@ -69,7 +147,7 @@ string Tensor<T>::print_recur(int depth, vector<int> ind){
     if (depth>0){oss<<"\n";}
     for(int i=0; i< shape_[depth]; i++){
       ind[depth] = i; 
-      oss<<"[";
+      oss<<"  [";
       oss<<print_recur(depth+1,ind)<<"],";
       if (i< shape_[depth]-1){// not the end of this dim   row1[] \n  row2[] \n   
         oss<<"\n";
@@ -80,7 +158,28 @@ string Tensor<T>::print_recur(int depth, vector<int> ind){
   
    throw std::invalid_argument( "should not come here" );
 }
-
+template <typename T>
+vector<T> Tensor<T>::toVec(){
+  ASSERT_THROW(shape_.size()==1," we can only convert 1d tensor to vector");  
+  return data_;
+}
+template <typename T>
+mat<T> Tensor<T>::toMat(){
+  mat<T> m; 
+  ASSERT_THROW(shape_.size()==2," we can only convert 2d tensor to matrix");
+  
+  const size_t rows = shape_[0];
+  const size_t cols = shape_[1]; 
+  for (size_t i =0; i< rows; i++){
+    vector<T> row;
+    row.resize(cols,0); 
+    m.push_back(row);
+    for (size_t j = 0; j < cols; ++j) {
+        m[i][j] = data_[i * strides_[0] + j * strides_[1]];
+    }
+  }
+  return m;
+}
 // Explicit instantiations (only these types will work)
 template class Tensor<int>;
 template class Tensor<float>;

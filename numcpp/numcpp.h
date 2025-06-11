@@ -6,6 +6,7 @@
 #include <cstdint>  // For uint32_t, int32_t, etc.
 #include <random>
 #include "tensor.h"
+#include "nc_def.h"
 // using namespace std;  //todo wait this is weird if I uncomment this some nasty error occurs
 //todo avoid using namespace std, otherwise it will cause conflict between 
 //todo std::nullopt (from <optional>) and c10::nullopt 
@@ -17,13 +18,12 @@ using std::endl;
 #define ASSERT_THROW(cond, msg) if (!(cond)) throw std::runtime_error(msg);
 // typedef std::vector<std::vector<int>> mat;
 // typedef std::vector<std::vector<float>> matf;
-template <typename T = int>
-using mat = std::vector<std::vector<T>>;
+
 namespace nc{
   extern const uint32_t E2MAX;
   vector<int> zeros_vec(int size);
   template <typename T>
-  mat<T> zeros_mat(int row, int col) {
+  std::vector<std::vector<T>> zeros_mat(int row, int col) {
       std::vector<std::vector<T>> zeros;
       for (int i = 0; i < row; ++i) {
           std::vector<T> r(col, static_cast<T>(0));
@@ -60,9 +60,10 @@ namespace nc{
   }
   
   template <typename T>
-  void print_vec(vector<T> v){
+  void print_vec(vector<T> v, int newline=1){
   //   for (int row =0 ; row<v.size(); row++){cout<<v[row]<<" "; } cout<<endl;
-    for (const T& elem : v) {cout << elem << " ";}cout << endl;
+    for (const T& elem : v) {cout << elem << " ";}
+    if (newline>0){ cout << endl;}
   } 
   int bin_mat_sum(const mat<int> &A);
   mat<int> bin_mat_mul(const mat<int> &A, const mat<int> & B);

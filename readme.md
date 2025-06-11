@@ -98,5 +98,6 @@ back to mat
 python run.py --opt 3 --delete False
 ```
 - for a tensor (dimision > 2)  
-- currently we only support print and indexing 
+- currently we only support print , indexing, slice, reshape 
 - tensor (matrix) multiplication and other functions (zeros,randn)...may be added in the future 
+- The tensor implementation is based on [pynorch](https://github.com/lucasdelimanogueira/PyNorch)  

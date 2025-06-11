@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "nc_def.h"
 using std::string;
 using std::vector;
 using std::cout;
@@ -9,7 +10,7 @@ using std::endl;
 namespace nc{
 template <typename T>
 class Tensor{
-  public: 
+public: 
   Tensor(){}
   Tensor(vector<T>& data,const vector<int>&shape);
   Tensor(vector<T>& data,std::initializer_list<int> shape
@@ -20,14 +21,22 @@ class Tensor{
     Tensor v1 {zz,{4,4}};
     */
   };
+  Tensor<T> reshape(vector<int> new_shape);
+  Tensor<T> reshape(std::initializer_list<int> new_shape){
+    return reshape(vector<int>(new_shape));
+  };
   T index(vector<int> indices);
   T index(std::initializer_list<int> indices){
       return index(vector<int>(indices)); // Convert and forward
   };
+  Tensor<T> slice(int dim, int start, int end);
   void info();
   void print();
   string print_recur(int depth, vector<int> index);
-  vector<T> data_;  //todo template 
+  vector<T> toVec();
+  mat<T> toMat();
+private:
+  vector<T> data_;  
   vector<int> strides_;  
   vector<int> shape_;  
   int ndim_; 
