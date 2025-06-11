@@ -14,6 +14,13 @@ It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
 - there is --opt 0~3
 ####  init 2D matrix : zeros, eye
 ```sh
+mkdir build 
+cd build
+cmake ..
+cmake --build . --config Release  
+./main -o 1
+
+#* if you are lazy, run.py is a script to compile and run the cpp files 
 python run.py --opt 1 --delete False
 ```
 
