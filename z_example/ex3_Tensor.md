@@ -1,4 +1,4 @@
-#### Ndim Tensor (work in progress)
+## Ndim Tensor (work in progress)
 ```sh
 python run.py --opt 3 --delete False
 ```
@@ -30,26 +30,19 @@ Tensor<float> newv1 = v1.reshape(new_shape);
 newv1 = v1.reshape({1,4});
 ```
 ### indexing
-- read by index
-```py
-#in python (numpy) we can do  
-print(A[:,1:4])
-```
-in numcpp this can be done by slice  
+- read by index  (A[:,0] in python(numpy))
+  - todo (some more fancy indexing A[2:3,:,1:4]) 
 ```cpp
 Tensor<float> vout = v1.slice(/*dim*/1,/*start*/1,/*end*/4);
+//v1[:,1:4] #in python (numpy)
 ```
-- todo (some more fancy indexing A[2:3,:,1:4]) 
 
-- set by index 
-```py
-#in python (numpy) we can do  
-A[:,1] = 3
-```
-in numcpp, we need to first create a input shape, 
-and put it into the index we want to replace   
-note that we need to make sure that the update index shape   
-are the same as input tensor shape  
+
+- set by index (A[1,:]=3 in python)
+  - to set by index, we need to first create a input Tensor, 
+and put it into the index we want to replace, the update index shape   
+should be the same as input tensor shape  
+  - todo broadcasting...
 ```cpp
 vector<float> zz2 = {0.1,0.3,0.2,-1.1,2.3,6.1};
 Tensor<float> v1 {zz2,{2,3}};
@@ -66,7 +59,7 @@ v1.slice_put(/*dim*/1,1,3, p_val);
 ```  
 
 #### convert Tensor to vec or matrix  
-
+we can convert the tensor back to vector or matrix 
 ```cpp
 //convert Tensor to matrix (Ten0 dim must == 2)
 mat<float> mm = Ten0.toMat();
