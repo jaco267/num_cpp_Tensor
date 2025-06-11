@@ -84,3 +84,11 @@ back to mat
  [1,0,1,0,],
  [1,1,1,1,]]
 ```
+
+#### Ndim Tensor (work in progress)
+```sh
+python run.py --opt 3 --delete False
+```
+- for a tensor (dimision > 2)  
+- currently we only support print and indexing 
+- tensor (matrix) multiplication and other functions (zeros,randn)...may be added in the future 
