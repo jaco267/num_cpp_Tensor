@@ -47,3 +47,12 @@ Tensor<float> vout = v1.slice(/*dim*/1,/*start*/1,/*end*/4);
 A[:,1] = 3
 ```  
 - cpp version haven't implement yet....   
+
+#### convert Tensor to vec or matrix  
+
+```cpp
+//convert Tensor to matrix (Ten0 dim must == 2)
+mat<float> mm = Ten0.toMat();
+//convert Tensor to vector (Ten1 dim must == 1)
+vector<float> vv = Ten1.toVec();
+```
