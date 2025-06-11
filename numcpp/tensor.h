@@ -30,6 +30,7 @@ public:
       return index(vector<int>(indices)); // Convert and forward
   };
   Tensor<T> slice(int dim, int start, int end);
+  void slice_put(int dim, int start, int end, Tensor<T> in_data);
   void info();
   void print();
   string print_recur(int depth, vector<int> index);

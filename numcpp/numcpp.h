@@ -31,6 +31,9 @@ namespace nc{
       }
       return zeros;
   }
+  template <typename T>
+  bool vec_equal(const vector<T>& a, const vector<T>& b);
+
 
   mat<int> eye(int k);
   vector<int> arange(int start, int end, int step = 1);

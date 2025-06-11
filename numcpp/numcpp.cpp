@@ -1,6 +1,22 @@
 #include "numcpp.h"
 namespace nc{
 const uint32_t E2MAX = (1ULL << 32) - 1;
+
+
+template <typename T>
+bool vec_equal(const vector<T>& a, const vector<T>& b){
+  ASSERT_THROW(a.size()==b.size(), "two vec should have same size");  
+  bool flag = 1;
+  for(int i=0; i< a.size(); i++){
+    if (a[i]!=b[i]){
+      flag = 0;
+      break;
+    }
+  }
+  return flag;
+}
+template bool vec_equal<int>(const vector<int>&, const vector<int>&);
+template bool vec_equal<float>(const vector<float>&, const vector<float>&);
 mat<int>kron(const mat<int>& A, const mat<int>& B) {
     size_t a_rows = A.size();
     size_t a_cols = A[0].size();

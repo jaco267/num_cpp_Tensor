@@ -121,8 +121,8 @@ int main(int argc, char *argv[]){
     vector<int> zz = zeros_vec(16);
     vector<int> shape = {4,4};
     Tensor<int> v0 {zz,shape};
-    vector<float> zz2 = {0.1,0.3,0.2,-1.1};
-    Tensor<float> v1 {zz2,{2,2}};
+    vector<float> zz2 = {0.1,0.3,0.2,-1.1,2.3,6.1};
+    Tensor<float> v1 {zz2,{2,3}};
     cout<<"v1\n";
     v1.info();
     cout<<"v1[0,0]:"<<v1.index({0,0})<<endl;
@@ -131,8 +131,13 @@ int main(int argc, char *argv[]){
     cout<<"----slice---"<<endl;
     Tensor<float> vout = v1.slice(/*dim*/1,1,2);
     vout.info();
+    cout<<"----slice_put---"<<endl;
+    vector<float> p_val_vec = {1,2,3,4}; 
+    Tensor<float> p_val {p_val_vec,{2,2}};
+    v1.slice_put(/*dim*/1,1,3, p_val);
+    v1.info();
+    cout<<"---reshape----"<<endl;
     vector<int> new_shape = {2,-1};
-    cout<<"reshape:"<<endl;
     Tensor<float> newv1 = v1.reshape(new_shape);
     v1.info();
     newv1.info();

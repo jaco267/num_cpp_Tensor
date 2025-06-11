@@ -1,5 +1,7 @@
 #include "numcpp.h"
 namespace nc{
+
+  
 vector<int> zeros_vec(int size){
   vector<int> zeros; 
   zeros.resize(size, 0); 
