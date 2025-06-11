@@ -6,7 +6,7 @@ find_package(Boost COMPONENTS system thread iostreams)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 
-add_subdirectory(numcpp_2D)
+add_subdirectory(numcpp)
 # Collect all .cpp files in the project directory (not include sub dir)
 file(GLOB SOURCES "*.cpp")
 
@@ -15,6 +15,6 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(
     ${PROJECT_NAME} 
-    numcpp_2D
+    numcpp
 )
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)

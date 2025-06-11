@@ -9,13 +9,12 @@
 #include <stdio.h> 
 #include <unistd.h> 
 #include <bits/getopt_core.h>
-#include <fstream>
 #include <filesystem>
 #include <string>
 #include <iostream>
 #include <random>
 #include <iomanip>
-namespace fs = std::filesystem;
+#include "numcpp.h"
 
 #define GET_VARIABLE_NAME(Variable) (#Variable)
 using std::stoi;
@@ -59,8 +58,8 @@ int main(int argc, char *argv[]){
       vector<int> z_v = zeros_vec(3);  
       print_vec(z_v);  
       cout<<"zeros matrix (3,3)"<<endl;
-      // mat is just vector<vector<int>>
-      mat z_m = zeros_mat(3,3);
+      // mat<int>is just vector<vector<int>>
+      mat<int> z_m = zeros_mat<int>(3,3);
       print_mat(z_m); 
       cout<<"eye"<<endl; 
       z_m = eye(3); 
@@ -69,25 +68,25 @@ int main(int argc, char *argv[]){
       z_v = arange(1,5,1);
       print_vec(z_v); 
     }else{
-      mat F2 = {
+      mat<int>F2 = {
         {1,0},
         {1,1}
       };  
-      mat kern = F2;  
+      mat<int>kern = F2;  
       for (int i =0; i<2-1; i++){
         kern = kron(F2,kern);
       }
-      mat F4 = kern; 
+      mat<int>F4 = kern; 
       cout<<"F4"<<endl;
       print_mat(F4);
-      mat e1 = eye(4);  
+      mat<int>e1 = eye(4);  
       cout<<"sum(e1)="<<bin_mat_sum(e1)<<endl;
-      mat res = bin_mat_mul(e1,F4);  
+      mat<int>res = bin_mat_mul(e1,F4);  
       cout<<"(F4@e1)%2="<<endl;
       print_mat(res);
 
       cout<<"h stack(A,B,C)"<<endl;  
-      mat s0 = hstack3(F4,e1,F4);
+      mat<int>s0 = hstack3(F4,e1,F4);
       print_mat(s0);
 
       vector<int> v1 = {1,3}; 

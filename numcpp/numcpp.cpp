@@ -1,12 +1,12 @@
 #include "numcpp.h"
 namespace nc{
 const uint32_t E2MAX = (1ULL << 32) - 1;
-mat kron(const mat& A, const mat& B) {
+mat<int>kron(const mat<int>& A, const mat<int>& B) {
     size_t a_rows = A.size();
     size_t a_cols = A[0].size();
     size_t b_rows = B.size();
     size_t b_cols = B[0].size();
-    mat result(a_rows * b_rows, std::vector<int>(a_cols * b_cols));
+    mat<int>result(a_rows * b_rows, std::vector<int>(a_cols * b_cols));
     for (size_t i = 0; i < a_rows; ++i) {
         for (size_t j = 0; j < a_cols; ++j) {
             for (size_t bi = 0; bi < b_rows; ++bi) {
@@ -19,8 +19,8 @@ mat kron(const mat& A, const mat& B) {
     return result;
 }
 
-mat hstack3(const mat & A, const mat & B, const mat& C) {
-  mat result;
+mat<int>hstack3(const mat<int>& A, const mat<int>& B, const mat<int>& C) {
+  mat<int>result;
   for (size_t i = 0; i < A.size(); ++i) {
       vector<int> row = A[i];
       row.insert(row.end(), B[i].begin(), B[i].end());
@@ -57,7 +57,7 @@ void setdiff1d_rev(vector<int> &ones_rows, vector<int> &fixed_rows_list
   }
 }
 
-int bin_mat_sum(const mat &A){
+int bin_mat_sum(const mat<int>&A){
   int sum_val = 0;  
   for (auto row : A){
     for (int val : row){
@@ -66,9 +66,9 @@ int bin_mat_sum(const mat &A){
   } 
   return sum_val;
 }
-mat bin_mat_mul(const mat &A, const mat & B){
-  mat out;  
-  ASSERT_THROW (A.size()>0 && B.size()>0 , " mat should have row num > 0");
+mat<int>bin_mat_mul(const mat<int>&A, const mat<int>& B){
+  mat<int>out;  
+  ASSERT_THROW (A.size()>0 && B.size()>0 , " mat<int>should have row num > 0");
   int m = A.size();  
   int n = A[0].size();  
   ASSERT_THROW ((int) B.size()==n , "2nd dim of A should be same as 1st dim in B in bin mat_mul");
@@ -105,7 +105,7 @@ vector<int> dec_to_bin(int n, int x){
   }
   return result;
 }
-vector<int> mat2comp_vec(const mat& g){
+vector<int> mat2comp_vec(const mat<int>& g){
   vector<int> g_list;  
   for (auto row : g){
     int val = 0;  
@@ -118,8 +118,8 @@ vector<int> mat2comp_vec(const mat& g){
   }
   return g_list;
 }
-mat comp_vec2mat(const vector<int> & v,int size_w){
-  mat g;  
+mat<int>comp_vec2mat(const vector<int> & v,int size_w){
+  mat<int>g;  
   for(unsigned i=0; i < v.size(); i ++){
     vector<int> row; 
     for(int j=0; j < size_w; j++ ){
@@ -129,11 +129,11 @@ mat comp_vec2mat(const vector<int> & v,int size_w){
   }
   return g;
 }
-void swap_row(mat &a, int i, int j){
+void swap_row(mat<int>&a, int i, int j){
   vector<int> tmp = a[i];  
   a[i] = a[j];  a[j] = tmp;
 }
-void add_row(mat &a, int i, int j){
+void add_row(mat<int>&a, int i, int j){
   for (unsigned col_i =0; col_i < a[0].size(); col_i ++){
     a[i][col_i] ^= a[j][col_i];
   } 
