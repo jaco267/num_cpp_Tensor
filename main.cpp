@@ -55,7 +55,7 @@ int main(int argc, char *argv[]){
     cout<<generate_gaussian_noise(dist, rng, 0, 0.5)<<endl;
   }else if (run_opt==1){ //numcpp_2D nc_init.cpp
     cout<<"zeros vector (3)\n";
-    vector<int> z_v = zeros_vec(3);  
+    vector<int> z_v = zeros_vec<int>(3);  
     print_vec(z_v);  
     cout<<"zeros matrix (3,3)"<<endl;
     // mat<int>is just vector<vector<int>>
@@ -116,11 +116,33 @@ int main(int argc, char *argv[]){
     print_vec(F4_i);
     cout<<"back to mat"<<endl; 
     print_mat(comp_vec2mat(F4_i, F4.size()));
-  } else{
-    cout<<"-----nc::tensor---"<<endl;
-    vector<int> zz = zeros_vec(16);
+  }else if(run_opt==3){
+    //** init Tensor with vector */
+    vector<int> zz = zeros_vec<int>(16);
+    zz[0]=3; zz[5]=9;
     vector<int> shape = {4,4};
     Tensor<int> v0 {zz,shape};
+    v0.info();
+    //** init Tensor directly */
+    cout<<"----T0----"<<endl;
+    shape = {4,3};
+    Tensor<float> T0 = zeros<float> (shape); 
+    T0.info();
+    cout<<"---reshape T0----"<<endl;
+    vector<int> new_shape = {2,-1};
+    Tensor<float> T0_r = T0.reshape(new_shape);
+    T0_r.info();
+    mat<float> mm = T0_r.toMat();
+    cout<<"matrix version:\n";
+    print_mat(mm);
+
+    Tensor<float> newv2 = T0.reshape({-1});
+    newv2.info();
+    vector<float> vv = newv2.toVec();
+    cout<<"vector version:";
+    print_vec(vv);
+  }else{
+    cout<<"-----nc::tensor---"<<endl;
     vector<float> zz2 = {0.1,0.3,0.2,-1.1,2.3,6.1};
     Tensor<float> v1 {zz2,{2,3}};
     cout<<"v1\n";
@@ -136,19 +158,6 @@ int main(int argc, char *argv[]){
     Tensor<float> p_val {p_val_vec,{2,2}};
     v1.slice_put(/*dim*/1,1,3, p_val);
     v1.info();
-    cout<<"---reshape----"<<endl;
-    vector<int> new_shape = {2,-1};
-    Tensor<float> newv1 = v1.reshape(new_shape);
-    v1.info();
-    newv1.info();
-    mat<float> mm = newv1.toMat();
-    cout<<"matrix version:\n";
-    print_mat(mm);
-    Tensor<float> newv2 = v1.reshape({-1});
-    newv2.info();
-    vector<float> vv = newv2.toVec();
-    cout<<"vector version:";
-    print_vec(vv);
   }
     return 0;
 }

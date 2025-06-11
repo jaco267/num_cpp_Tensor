@@ -5,14 +5,13 @@
 #include <bitset>
 #include <cstdint>  // For uint32_t, int32_t, etc.
 #include <random>
-#include "tensor.h"
-#include "nc_def.h"
 // using namespace std;  //todo wait this is weird if I uncomment this some nasty error occurs
 //todo avoid using namespace std, otherwise it will cause conflict between 
 //todo std::nullopt (from <optional>) and c10::nullopt 
 using std::vector;
 using std::cout;
 using std::endl;
+#include "nc_def.h"
 
 
 #define ASSERT_THROW(cond, msg) if (!(cond)) throw std::runtime_error(msg);
@@ -21,7 +20,12 @@ using std::endl;
 
 namespace nc{
   extern const uint32_t E2MAX;
-  vector<int> zeros_vec(int size);
+  template <typename T>
+  vector<T> zeros_vec(int size){
+    vector<T> zeros; 
+    zeros.resize(size, 0); 
+    return zeros;
+  }
   template <typename T>
   std::vector<std::vector<T>> zeros_mat(int row, int col) {
       std::vector<std::vector<T>> zeros;
@@ -32,8 +36,17 @@ namespace nc{
       return zeros;
   }
   template <typename T>
-  bool vec_equal(const vector<T>& a, const vector<T>& b);
-
+  bool vec_equal(const vector<T>& a, const vector<T>& b){
+    ASSERT_THROW(a.size()==b.size(), "two vec should have same size");  
+    bool flag = 1;
+    for(int i=0; i< a.size(); i++){
+      if (a[i]!=b[i]){
+        flag = 0;
+        break;
+      }
+    }
+    return flag;
+  }
 
   mat<int> eye(int k);
   vector<int> arange(int start, int end, int step = 1);
@@ -49,6 +62,14 @@ namespace nc{
       sum += v[i];
     }
     return sum;
+  }
+  template <typename T>
+  T mul_vec(const vector<T>& v){
+    T val = 1; 
+    for (unsigned i =0; i< v.size(); i++){
+      val *= v[i];
+    }
+    return val;
   }
   template <typename T>
   void print_mat(vector<vector<T>> G){
@@ -86,3 +107,5 @@ namespace nc{
       std::mt19937& rng, int len_noise, double mean, double stddev);
 }
 
+
+#include "tensor.h"

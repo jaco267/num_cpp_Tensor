@@ -7,6 +7,7 @@ using std::string;
 using std::vector;
 using std::cout;
 using std::endl;
+#pragma once
 namespace nc{
 template <typename T>
 class Tensor{
@@ -17,7 +18,7 @@ public:
   ): Tensor(data, vector<int>(shape.begin(), shape.end())){
     // cout<<"with initializer"<<endl;
     /*
-    vector<int> zz = zeros_vec(16);
+    vector<int> zz = zeros_vec<int>(16);
     Tensor v1 {zz,{4,4}};
     */
   };
@@ -44,3 +45,5 @@ private:
   int size_;
 };
 }
+
+#include "tensor_init.h"

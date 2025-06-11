@@ -163,7 +163,7 @@ void Tensor<T>::info(){
 }
 template <typename T>
 void Tensor<T>::print(){
-  vector<int> index = zeros_vec(ndim_);
+  vector<int> index = zeros_vec<int>(ndim_);
   string result = "tensor([\n";
   result+=print_recur(0,index);
   result+="\n])";
@@ -217,7 +217,7 @@ mat<T> Tensor<T>::toMat(){
   }
   return m;
 }
-// Explicit instantiations (only these types will work)
+//*Explicit template
 template class Tensor<int>;
 template class Tensor<float>;
 }

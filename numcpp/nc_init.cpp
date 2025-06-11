@@ -1,12 +1,7 @@
 #include "numcpp.h"
 namespace nc{
 
-  
-vector<int> zeros_vec(int size){
-  vector<int> zeros; 
-  zeros.resize(size, 0); 
-  return zeros;
-}
+
 mat<int>eye(int k){
   mat<int>e;
   for (int i=0;i<k;i++){
