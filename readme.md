@@ -9,30 +9,9 @@ It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
 - numcpp.cpp : kron/setdiff1d/bin_mat_sum/bin_mat_mul/bin_to_dec
   - dec_to_bin/ mat2comp_vec/comp_vec2mat/ swap_row/ add_row
 
-#### exmaples
-```sh
-python run.py --opt 0 --delete False
-```
-this can generate same randn (gauessian) distribution as in python 
-
-```
-1608637542
-3421126067
-0.06456553583016988
-0.07325430398666906
-```
-
-```sh
-python main.py --opt 0
-```
-```
-1608637542
-3421126067
-0.06456553583016988
-0.07325430398666906
-```
-
-
+### exmaples (for more example, see z_example/ folder)
+- there is --opt 0~3
+####  init 2D matrix : zeros, eye
 ```sh
 python run.py --opt 1 --delete False
 ```
@@ -52,6 +31,8 @@ arange(1,5,1)
 1 2 3 4     
 ```
 
+#### 1D vector and 2d matrix 
+- binary multiplication of 2 matrix, setdiff1d
 ```sh
 python run.py --opt 2 --delete False
 ```
