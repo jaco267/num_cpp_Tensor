@@ -1,5 +1,5 @@
 
-### simple binary matrix library
+### simple binary matrix library in c++
 
 It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
 
