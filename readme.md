@@ -13,6 +13,7 @@ It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
 <!-- - (for more example, see z_example/ folder) -->
 - there is --opt 0~4
 ####  init 2D matrix : zeros, eye
+
 ```sh
 mkdir build 
 cd build
@@ -21,6 +22,7 @@ cmake --build . --config Release
 ./main -o 1
 
 #* if you are lazy, run.py is a script to compile and run the cpp files 
+pip install pyrallis  #python command line library
 python run.py  --delete False --opt 1
 ```
 

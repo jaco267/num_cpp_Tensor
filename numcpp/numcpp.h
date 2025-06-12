@@ -27,6 +27,12 @@ namespace nc{
     return zeros;
   }
   template <typename T>
+  vector<T> ones_vec(int size){
+    vector<T> zeros; 
+    zeros.resize(size, 1); 
+    return zeros;
+  }
+  template <typename T>
   std::vector<std::vector<T>> zeros_mat(int row, int col) {
       std::vector<std::vector<T>> zeros;
       for (int i = 0; i < row; ++i) {

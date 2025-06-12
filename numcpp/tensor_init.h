@@ -11,4 +11,8 @@ Tensor<T> zeros (vector<int> shape){
   Tensor<T> data {data_vec,shape};
   return data;
 }
+template <typename T>
+Tensor<T> zeros (std::initializer_list<int> shape){
+  return zeros<T>(vector<int>(shape.begin(),shape.end()));
+}
 }
