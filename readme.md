@@ -11,7 +11,7 @@ It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
 
 ### exmaples 
 <!-- - (for more example, see z_example/ folder) -->
-- there is --opt 0~4
+- there is --opt 0~5
 ####  init 2D matrix : zeros, eye
 
 ```sh
@@ -103,3 +103,4 @@ python run.py --opt 3 --delete False
 - currently we only support print , indexing, slice, reshape 
 - tensor (matrix) multiplication and other functions (zeros,randn)...may be added in the future 
 - The tensor implementation is based on [pynorch](https://github.com/lucasdelimanogueira/PyNorch)  
+- for more information please read `z_exmaple/..Tensor.md`

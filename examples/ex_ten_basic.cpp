@@ -1,4 +1,5 @@
 #include "examples.h"
+using namespace nc::indexing; 
 void ex3(){
     //** init Tensor with vector */
     vector<int> zz = zeros_vec<int>(16);
@@ -47,7 +48,7 @@ void ex5(){
     // nc::indexing::Slice(0,1,std::monostate{});
 
   nc::indexing::Slice(1);
-  nc::indexing::Slice(1,0, nc::indexing::None);
+  nc::indexing::Slice(1,0, None);
   vector<float> zz2 = {0.1,0.3,0.2,
                          1, 2 , 3, 
 
@@ -63,12 +64,12 @@ void ex5(){
   cout<<"v1\n";
   v1.info();
   cout<<"----v1[2:4,1,:]---"<<endl;
-  Tensor <float> out_v1 = v1.index({nc::indexing::Slice(2,4),1,nc::indexing::None});
+  Tensor <float> out_v1 = v1.index({Slice(2,4),1,None});
   out_v1.info();
   cout<<"----v1[2,:,1:]=0---"<<endl;
   Tensor<float> put0 = zeros<float>({1,2,2});
 //   put0.info();
-  v1.index_put({2,nc::indexing::Slice(nc::indexing::None),nc::indexing::Slice(1)},put0);
+  v1.index_put({2,Slice(None),Slice(1)},put0);
   v1.info();
   cout<<"----indexing[2:4]:";
   cout<<nc::indexing::Slice(2,4)<<endl;
