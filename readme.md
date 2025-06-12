@@ -44,7 +44,7 @@ arange(1,5,1)
 #### 1D vector and 2d matrix 
 - binary multiplication of 2 matrix, setdiff1d
 ```sh
-python run.py --opt 2 --delete False
+python run.py --delete False --opt 2 
 ```
 
 ```

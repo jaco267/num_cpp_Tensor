@@ -33,8 +33,19 @@ def main(cfg: TrainConfig):
     print(generate_gaussian_noise(0,0.5))
     print(generate_gaussian_noise(0,0.5))
   else:
-    pass
-
+    v1 = np.array([0.1,0.3,0.2,
+                    1, 2 , 3, 
+                -1.1,2.3,6.1,
+                    4, 5 , 6, 
+                0.9, 0.8,-0.5,
+                7, 8 ,  8 , 
+                -3, -2,-9,
+                10, 11, 12]).reshape(4,2,3)
+    print(v1)
+    print("----v1[2:4,1,:]----")
+    print(v1[2:4,1,:])
+    v1[2,:,1:] = 0
+    print(v1)
 if __name__ == '__main__':
   main()
 

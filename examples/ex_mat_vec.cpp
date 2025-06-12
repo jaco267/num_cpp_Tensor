@@ -85,3 +85,4 @@ void ex2(){
     cout<<"back to mat"<<endl; 
     print_mat(comp_vec2mat(F4_i, F4.size()));
 }
+

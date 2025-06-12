@@ -18,3 +18,5 @@ void ex2();
 //* ex_ten_basic
 void ex3();
 void ex4();
+void ex5();
+//*----todod
