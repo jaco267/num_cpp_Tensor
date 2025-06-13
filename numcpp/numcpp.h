@@ -5,42 +5,16 @@
 #include <bitset>
 #include <cstdint>  // For uint32_t, int32_t, etc.
 #include <random>
+#include <algorithm> //sort
 // using namespace std;  //todo wait this is weird if I uncomment this some nasty error occurs
 //todo avoid using namespace std, otherwise it will cause conflict between 
-//todo std::nullopt (from <optional>) and c10::nullopt 
 using std::vector;
 using std::cout;
 using std::endl;
 #include "nc_def.h"
-
-
-#define ASSERT_THROW(cond, msg) if (!(cond)) throw std::runtime_error(msg);
-// typedef std::vector<std::vector<int>> mat;
-// typedef std::vector<std::vector<float>> matf;
+#include "nc_init.h"
 
 namespace nc{
-  extern const uint32_t E2MAX;
-  template <typename T>
-  vector<T> zeros_vec(int size){
-    vector<T> zeros; 
-    zeros.resize(size, 0); 
-    return zeros;
-  }
-  template <typename T>
-  vector<T> ones_vec(int size){
-    vector<T> zeros; 
-    zeros.resize(size, 1); 
-    return zeros;
-  }
-  template <typename T>
-  std::vector<std::vector<T>> zeros_mat(int row, int col) {
-      std::vector<std::vector<T>> zeros;
-      for (int i = 0; i < row; ++i) {
-          std::vector<T> r(col, static_cast<T>(0));
-          zeros.push_back(r);
-      }
-      return zeros;
-  }
   template <typename T>
   bool vec_equal(const vector<T>& a, const vector<T>& b){
     ASSERT_THROW(a.size()==b.size(), "two vec should have same size");  
@@ -53,9 +27,20 @@ namespace nc{
     }
     return flag;
   }
+  //* https://gist.github.com/HViktorTsoi/58eabb4f7c5a303ced400bcfa816f6f5
+  template<typename T>
+  std::vector<size_t> argsort(const std::vector<T> &array) {
+      std::vector<size_t> indices(array.size());
+      std::iota(indices.begin(), indices.end(), 0);
+      std::sort(indices.begin(), indices.end(),
+                [&array](int left, int right) -> bool {
+                    // sort indices according to corresponding array element
+                    return array[left] < array[right];
+                });
+  
+      return indices;
+  }
 
-  mat<int> eye(int k);
-  vector<int> arange(int start, int end, int step = 1);
   mat<int> kron(const mat<int>& A, const mat<int>& B);
   mat<int> hstack3(const mat<int> & A, const mat<int> & B, const mat<int>& C);
   vector<int> setdiff1d(const vector<int> &input, const vector<int> &diff_list);

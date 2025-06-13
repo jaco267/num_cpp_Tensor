@@ -28,11 +28,14 @@ void ex1(){
     mat<int> z_m = zeros_mat<int>(3,3);
     print_mat(z_m); 
     cout<<"eye"<<endl; 
-    z_m = eye(3); 
+    z_m = eye<int>(3); 
     print_mat(z_m);
     cout<<"arange(1,5,1)"<<endl;
-    z_v = arange(1,5,1);
+    z_v = arange_vec<int>(1,5,1);
     print_vec(z_v); 
+    vector<float> z_f = arange_vec<float> (0,5,1);
+    z_f[0] = 0.2;
+    print_vec(z_f);
 }
 
 void ex2(){
@@ -47,7 +50,7 @@ void ex2(){
     mat<int>F4 = kern; 
     cout<<"F4"<<endl;
     print_mat(F4);
-    mat<int>e1 = eye(4);  
+    mat<int>e1 = eye<int>(4);  
     cout<<"sum(e1)="<<bin_mat_sum(e1)<<endl;
     mat<int>res = bin_mat_mul(e1,F4);  
     cout<<"(F4@e1)%2="<<endl;
@@ -58,7 +61,7 @@ void ex2(){
     print_mat(s0);
 
     vector<int> v1 = {1,3}; 
-    vector<int> v2 = arange(0, 5); 
+    vector<int> v2 = arange_vec<int>(0, 5); 
     cout<<"setdiff1d (arange(0,5), [1,3])"<<endl; 
     print_vec(setdiff1d(v2,v1));
     

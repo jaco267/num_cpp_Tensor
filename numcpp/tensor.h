@@ -4,7 +4,7 @@
 #include <string>
 #include "nc_def.h"
 
-#include "nc_index.h"
+#include "ten_index.h"
 using std::string;
 using std::vector;
 using std::cout;
