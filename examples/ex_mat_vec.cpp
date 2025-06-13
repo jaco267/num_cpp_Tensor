@@ -7,7 +7,7 @@ using std::cin;
 using std::endl;
 using std::string; 
 using namespace nc;
-void ex0(){
+void ex0(){ //* random vector
     int seed = 42;
     std::mt19937 rng(seed);
     std::uniform_int_distribution<uint32_t> dist(0, nc::E2MAX);
@@ -19,14 +19,10 @@ void ex0(){
     cout<<generate_gaussian_noise(dist, rng, 0, 0.5)<<endl;
 }
 
-void ex1(){
-    cout<<"zeros vector (3)\n";
-    vector<int> z_v = zeros_vec<int>(3);  
-    print_vec(z_v);  
-    cout<<"zeros matrix (3,3)"<<endl;
-    // mat<int>is just vector<vector<int>>
-    mat<int> z_m = zeros_mat<int>(3,3);
-    print_mat(z_m); 
+void ex1(){ //* init vector
+    cout<<"zeros vector (3)\n"; vector<int> z_v = zeros_vec<int>(3);  print_vec(z_v);  
+    cout<<"zeros matrix (3,3)"<<endl; // mat<int>is just vector<vector<int>>
+    mat<int> z_m = zeros_mat<int>(3,3); print_mat(z_m); 
     cout<<"eye"<<endl; 
     z_m = eye<int>(3); 
     print_mat(z_m);

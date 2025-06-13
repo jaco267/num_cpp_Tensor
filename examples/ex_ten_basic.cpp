@@ -2,15 +2,19 @@
 using namespace nc::indexing; 
 void ex3(){
     //** init Tensor with vector */
-    vector<int> zz = zeros_vec<int>(16);
-    zz[0]=3; zz[5]=9;
+    vector<int> zz = zeros_vec<int>(16); zz[0]=3; zz[5]=9;
     vector<int> shape = {4,4};
-    Tensor<int> v0 {zz,shape};
+    Tensor<int> v0 {zz,shape}; //* or just : Tensor<int> v0 {zz,/*shape*/{4,4}};
     v0.info();
     //** init Tensor directly */
-    cout<<"----T0----"<<endl;
-    shape = {4,3};
-    Tensor<float> T0 = zeros<float> (shape); 
+    cout<<"----Tensor init directly----"<<endl;
+    cout<<"--arange--"<<endl;
+    Tensor<float> T0 = arange<float>(-1,6); 
+    T0.info();
+    cout<<"---ones---"<<endl;
+    T0 = ones<float> ({2,2});
+    T0.info();
+    T0 = zeros<float> ({4,3}); 
     T0.info();
     cout<<"---reshape T0----"<<endl;
     vector<int> new_shape = {2,-1};

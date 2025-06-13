@@ -13,7 +13,6 @@ using std::cout;
 using std::endl;
 #include "nc_def.h"
 #include "nc_init.h"
-
 namespace nc{
   template <typename T>
   bool vec_equal(const vector<T>& a, const vector<T>& b){
@@ -90,13 +89,8 @@ namespace nc{
   
   void swap_row(mat<int> &a, int i, int j);
   void add_row(mat<int> &a, int i, int j);
-  //* ----nc_rand----
-  double generate_gaussian_noise(
-    std::uniform_int_distribution<uint32_t> & dist,
-    std::mt19937& rng, double mean, double stddev);
-  vector<double> randn(  std::uniform_int_distribution<uint32_t> & dist,
-      std::mt19937& rng, int len_noise, double mean, double stddev);
 }
 
 
+#include "nc_rand.h"
 #include "tensor.h"

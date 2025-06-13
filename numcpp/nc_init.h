@@ -23,9 +23,12 @@ std::vector<std::vector<T>> zeros_mat(int row, int col) {
     return zeros;
 }
 template<typename T>
-vector<T> arange_vec(int start, int end, int step=1) {
+vector<T> arange_vec(T start, T end, T step=1) {
+  if (start > end || step <= 0){
+     throw std::invalid_argument( "arange_vec currently only support end > start and step > 0" );
+  }
   vector<T> result;
-  for (int i = start; i < end; i += step) {
+  for (T i = start; i < end; i += step) {
       result.push_back((T)i);
   }
   return result;

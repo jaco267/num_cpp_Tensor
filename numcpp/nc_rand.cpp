@@ -1,6 +1,7 @@
 #include "numcpp.h"
 #include <random>
 namespace nc{
+
 double generate_gaussian_noise(
   std::uniform_int_distribution<uint32_t> & dist,
   std::mt19937& rng, double mean, double stddev) {
@@ -16,7 +17,7 @@ double generate_gaussian_noise(
   return z0 * stddev + mean;
 }
 vector<double> randn(  std::uniform_int_distribution<uint32_t> & dist,
-    std::mt19937& rng, int len_noise, double mean, double stddev){
+  std::mt19937& rng, int len_noise, double mean, double stddev){
   vector<double> noise; 
   noise.resize(len_noise,0); 
   for (int i=0; i< len_noise; i++){
