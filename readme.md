@@ -98,7 +98,7 @@ back to mat
 ### Ndim Tensor (work in progress)
 
 - for a tensor (dimision > 2)  
-- currently we only support print (info()) , indexing, slice, reshape 
+- currently we only support print (info()) ,init (zeros,ones,arange..), indexing, reshape 
 - tensor (matrix) multiplication and other functions (randn,kron...) may be added in the future 
 - some implementation (print tensor, strides) is based on [pynorch](https://github.com/lucasdelimanogueira/PyNorch)  
 - the fancy indexing : v1.index({Slice(2,4),1,None}) is similar to [libtorch](https://docs.pytorch.org/cppdocs/notes/tensor_indexing.html), but currently we don't support broadcasting and tensor indices (for example v1.index({v2, 1}, where v2 is a vector[1,3,5] is not support yet..))
