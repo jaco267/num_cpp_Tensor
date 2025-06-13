@@ -2,7 +2,7 @@
 ### indexing is more convinient then slice
 ### warning , still doesn't support broadcasting
 ```sh
-python run.py --opt 5 --delete False
+python run.py --delete False --opt 5 
 # run numpy to check the values is correct 
 python main.py --opt 5  
 ```

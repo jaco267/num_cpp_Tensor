@@ -1,6 +1,6 @@
 #include "examples.h"
 using namespace nc::indexing; 
-void ex3(){
+void ex3(){ //* init Tensor : zeros, ones arange,  reshape, toVec, toMat
     //** init Tensor with vector */
     vector<int> zz = zeros_vec<int>(16); zz[0]=3; zz[5]=9;
     vector<int> shape = {4,4};
