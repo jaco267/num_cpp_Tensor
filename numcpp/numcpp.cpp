@@ -139,6 +139,7 @@ void add_row(mat<int>&a, int i, int j){
     a[i][col_i] ^= a[j][col_i];
   } 
 }
+  
 
 }
 

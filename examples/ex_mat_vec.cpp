@@ -23,6 +23,9 @@ void ex1(){ //* init vector
     cout<<"zeros vector (3)\n"; vector<int> z_v = zeros_vec<int>(3);  print_vec(z_v);  
     cout<<"zeros matrix (3,3)"<<endl; // mat<int>is just vector<vector<int>>
     mat<int> z_m = zeros_mat<int>(3,3); print_mat(z_m); 
+
+    cout<<"---mat2vec---"<<endl; 
+    print_vec(mat2vec(z_m));
     cout<<"eye"<<endl; 
     z_m = eye<int>(3); 
     print_mat(z_m);

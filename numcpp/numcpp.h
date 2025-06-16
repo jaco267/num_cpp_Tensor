@@ -6,6 +6,7 @@
 #include <cstdint>  // For uint32_t, int32_t, etc.
 #include <random>
 #include <algorithm> //sort
+#include <map>
 // using namespace std;  //todo wait this is weird if I uncomment this some nasty error occurs
 //todo avoid using namespace std, otherwise it will cause conflict between 
 using std::vector;
@@ -25,6 +26,17 @@ namespace nc{
       }
     }
     return flag;
+  }
+  template <typename T>
+  vector<T> mat2vec(const mat<T>& m){
+    vector<T> v;
+    if (m.size()==0){return v;}
+    for(int r=0;r<m.size(); r++){
+      for(int c=0; c<m[0].size();c++){
+        v.push_back(m[r][c]);
+      }
+    }
+    return v;
   }
   //* https://gist.github.com/HViktorTsoi/58eabb4f7c5a303ced400bcfa816f6f5
   template<typename T>
@@ -89,6 +101,27 @@ namespace nc{
   
   void swap_row(mat<int> &a, int i, int j);
   void add_row(mat<int> &a, int i, int j);
+//*----others 
+//*https://stackoverflow.com/questions/70868307/c-equivalent-of-numpy-unique-on-stdvector-with-return-index-and-return-inver
+template <typename Container>
+auto unique_map( const Container & xs )
+-> std::map <typename Container::value_type, std::vector <std::size_t> >{
+  decltype(unique_map(xs)) S;
+  std::size_t n = 0;
+  for (const auto & x : xs){
+    S[ x ].push_back( n++ );
+  }
+  return S;
+}
+template <typename Container>
+Container unique_(const Container & in ){
+  Container out;
+  auto ys = unique_map(in);
+  for (auto y : ys) {
+    out.push_back(y.first);
+  }
+  return out;
+}
 }
 
 

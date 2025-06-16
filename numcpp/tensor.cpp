@@ -80,7 +80,6 @@ Tensor<T> Tensor<T>::index(const vector<nc_Slice_Index>& slice_indices){
   create_new_shape_from_slice(new_slice,new_shape);
   // cout<<"new shape:"; print_vec(new_shape);
   int new_size = mul_vec(new_shape); 
-  // cout<<"mul vec"<<new_size<<endl;
   vector<T> new_data;
   new_data.reserve(new_size);
   vector<int> indices(shape_.size(), 0);//* indices for current iteration's row and col 
@@ -118,6 +117,8 @@ void Tensor<T>::index_put(
   create_new_shape_from_slice(new_slice,new_shape);
   //* self.shape (4,2,3)
   //* new_shape == in_data.shape_ == (2,1,3)
+  // cout<<"new_shape:";
+  // print_vec(new_shape);print_vec(in_data.shape_);
   ASSERT_THROW(vec_equal(new_shape, in_data.shape_),"put tensor should have same shape as new_shape(currently no broadcast)");
 
   int new_size = mul_vec(new_shape); //* 2*3 = 6
