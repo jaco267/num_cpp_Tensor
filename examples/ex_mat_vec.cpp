@@ -22,10 +22,13 @@ void ex0(){ //* random vector
 void ex1(){ //* init vector
     cout<<"zeros vector (3)\n"; vector<int> z_v = zeros_vec<int>(3);  print_vec(z_v);  
     cout<<"zeros matrix (3,3)"<<endl; // mat<int>is just vector<vector<int>>
-    mat<int> z_m = zeros_mat<int>(3,3); print_mat(z_m); 
-
+    mat<int> z_m = zeros_mat<int>(3,3);
+    z_m[0][1] = 3; print_mat(z_m); 
     cout<<"---mat2vec---"<<endl; 
-    print_vec(mat2vec(z_m));
+    vector<int> z_m_v = mat2vec<int>(z_m);
+    print_vec(z_m_v);
+    cout<<"---vec2mat---"<<endl;
+    print_mat(vec2mat<int>(z_m_v,3,3));
     cout<<"eye"<<endl; 
     z_m = eye<int>(3); 
     print_mat(z_m);

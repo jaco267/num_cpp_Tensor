@@ -38,6 +38,19 @@ namespace nc{
     }
     return v;
   }
+  template <typename T>
+  mat<T> vec2mat(const vector<T>& v, int row, int col){
+    mat<T> m;
+    if (v.size()==0){return m;}
+    for(int r=0;r<row; r++){
+      vector<T> row_vector;
+      for(int c=0; c<col;c++){
+        row_vector.push_back(v[r*col+c]);
+      }
+      m.push_back(row_vector);
+    }
+    return m;
+  }
   //* https://gist.github.com/HViktorTsoi/58eabb4f7c5a303ced400bcfa816f6f5
   template<typename T>
   std::vector<size_t> argsort(const std::vector<T> &array) {
