@@ -101,7 +101,9 @@ namespace nc{
   template <typename T>
   void print_vec(vector<T> v, int newline=1){
   //   for (int row =0 ; row<v.size(); row++){cout<<v[row]<<" "; } cout<<endl;
-    for (const T& elem : v) {cout << elem << " ";}
+    cout<<"[";
+    for (const T& elem : v) {cout << elem << ",";}
+    cout<<"]";
     if (newline>0){ cout << endl;}
   } 
   int bin_mat_sum(const mat<int> &A);
@@ -110,6 +112,22 @@ namespace nc{
   int bin_to_dec(const vector<int>& bin_list);
   vector<int> dec_to_bin(int n, int x);
   vector<int> mat2comp_vec(const mat<int>& g);
+  
+  template <typename T>
+  vector<T> mat2comp_vec_t(const mat<T>& g){
+    vector<T> g_list;  
+    for (auto row : g){
+      T val = 0;  
+      for (unsigned i =0; i< row.size(); i++){
+          if (row[i] == 1){
+              val += std::pow(2,i);
+          }
+      }
+      g_list.push_back(val);
+    }
+    return g_list;
+  }
+
   mat<int> comp_vec2mat(const vector<int> & v,int size_w);
   
   void swap_row(mat<int> &a, int i, int j);

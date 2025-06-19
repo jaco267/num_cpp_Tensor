@@ -306,4 +306,7 @@ mat<T> Tensor<T>::toMat(){
 //*Explicit template
 template class Tensor<int>;
 template class Tensor<float>;
+template class Tensor<long>;
+
+template class Tensor<unsigned long>;
 }
