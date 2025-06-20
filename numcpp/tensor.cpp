@@ -13,7 +13,7 @@ Tensor<T>::Tensor(vector<T>& data,const vector<int>&shape
     size_*=shape_[i];
   }
   
-  ASSERT_THROW(size_==data_.size(),"data size should equal to multiplication of shape ");
+  ASSERT_THROW(size_==(int)data_.size(),"data size should equal to multiplication of shape ");
   int stride = 1;  
   strides_.resize(ndim_,0);
   for(int i = ndim_ - 1; i >= 0; i--){
@@ -27,7 +27,7 @@ Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
   int inferred_dim = -100;
   int known_dims_product = 1;
   
-  for(int i=0;i<new_shape.size();i++){
+  for(int i=0;i<(int)new_shape.size();i++){
     int dim = new_shape[i];
     if (dim==-1){
       minus_count++;
@@ -42,7 +42,7 @@ Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
   //* Calculate the inferred dimension if -1 is present
   if (inferred_dim == -1){
     int inferred_dim_size= total_elements / known_dims_product; 
-    for(int i=0;i<new_shape.size();i++){
+    for(int i=0;i<(int)new_shape.size();i++){
       int dim = new_shape[i];
       if (dim == -1){
         new_shape[i] = inferred_dim_size;
@@ -52,7 +52,7 @@ Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
   // int new_ndim = (int)new_shape.size(); 
 
   int size = 1;
-  for(int i=0;i<new_shape.size();i++){
+  for(int i=0;i<(int)new_shape.size();i++){
     size*=new_shape[i];
   }
   ASSERT_THROW(size==size_,"Cannot reshape tensor. Total number of elements in new shape does not match the current size of the tensor");
@@ -84,10 +84,10 @@ Tensor<T> Tensor<T>::index(const vector<nc_Slice_Index>& slice_indices){
   new_data.reserve(new_size);
   vector<int> indices(shape_.size(), 0);//* indices for current iteration's row and col 
   ASSERT_THROW(shape_.size()==new_slice.size(),"currently shape must equal otherwise original idx will have error");
-  for (size_t i = 0; i < new_size; ++i){// Iterate through all elements and copy the ones in the slice
+  for (size_t i = 0; i <  (size_t) new_size; ++i){// Iterate through all elements and copy the ones in the slice
     // Calculate the original tensor's index
     size_t original_idx = 0;
-    for (int d = 0; d < shape_.size(); ++d) {
+    for (int d = 0; d < (int) shape_.size(); ++d) {
       int start = new_slice[d][0];
       original_idx += (indices[d] + start) * strides_[d];
     }
@@ -100,7 +100,7 @@ Tensor<T> Tensor<T>::index(const vector<nc_Slice_Index>& slice_indices){
         indices[d] = 0;
     }
   }
-  ASSERT_THROW(new_data.size()==new_size,"new_data.size()==new_size");
+  ASSERT_THROW((int)new_data.size()==new_size,"new_data.size()==new_size");
   Tensor<T> v0 {new_data, new_shape};
   return v0;
 }
@@ -128,15 +128,15 @@ void Tensor<T>::index_put(
   ASSERT_THROW(shape_.size()==new_slice.size(),"currently shape must equal otherwise original idx will have error");
   vector<int> in_indices(new_shape.size(),0);
   
-  for (size_t i = 0; i < new_size; ++i){
+  for (size_t i = 0; i < (size_t) new_size; ++i){
      // Calculate the original tensor's index
     size_t original_idx = 0;
-    for (int d = 0; d < shape_.size(); ++d) {
+    for (int d = 0; d < (int) shape_.size(); ++d) {
       int start = new_slice[d][0];
       original_idx += (indices[d] + start) * strides_[d];
     }
     size_t in_idx = 0;
-    for (int d = 0; d < new_shape.size(); ++d){
+    for (int d = 0; d < (int) new_shape.size(); ++d){
       in_idx += in_indices[d]*in_data.strides_[d];
     }
     // update storage with input Tensor's value
@@ -158,7 +158,7 @@ void Tensor<T>::index_put(
 template <typename T>
 Tensor<T> Tensor<T>::slice(int dim, int start, int end){
   // check for valid dimension 
-  if (dim<0 || dim >= shape_.size()){throw std::out_of_range( "Dim out of range" );}
+  if (dim<0 || dim >= (int) shape_.size()){throw std::out_of_range( "Dim out of range" );}
   // check for valid start/end indices 
   if (start<0 ||end < 0|| end > shape_[dim]||start>=end){throw std::out_of_range("Invalid start or end index");}
   // Create a copy of the current shape and modify the specified dimension
@@ -169,10 +169,10 @@ Tensor<T> Tensor<T>::slice(int dim, int start, int end){
   // Create index vector for iteration
   vector<int> indices(shape_.size(), 0);  //* indices for current iteration's row and col 
   //*ex. shape(2,2) dim 1 start 0 end 1   stride  = 2,1  -> original idx = 0 : d=0   0* 
-  for (size_t i = 0; i < new_size; ++i) {// Iterate through all elements and copy the ones in the slice
+  for (size_t i = 0; i < (size_t) new_size; ++i) {// Iterate through all elements and copy the ones in the slice
       // Calculate the original tensor's index
       size_t original_idx = 0;
-      for (int d = 0; d < shape_.size(); ++d) {
+      for (int d = 0; d < (int) shape_.size(); ++d) {
           if (d == dim) { original_idx += (indices[d] + start) * strides_[d];
           } else {        original_idx += indices[d] * strides_[d];}
       }
@@ -185,14 +185,14 @@ Tensor<T> Tensor<T>::slice(int dim, int start, int end){
           indices[d] = 0;
       }
   }
-  ASSERT_THROW(new_data.size()==new_size,"new_data.size()==new_size");
+  ASSERT_THROW((int)new_data.size()==new_size,"new_data.size()==new_size");
   Tensor<T> v0 {new_data, new_shape};
   return v0;
 }  
 template <typename T>
 void Tensor<T>::slice_put(int dim, int start, int end, Tensor<T> in_data){
   // check for valid dimension 
-  if (dim<0 || dim >= shape_.size()){throw std::out_of_range( "Dim out of range" );}
+  if (dim<0 || dim >= (int)shape_.size()){throw std::out_of_range( "Dim out of range" );}
   // check for valid start/end indices 
   if (start<0 ||end < 0|| end > shape_[dim]||start>=end){throw std::out_of_range("Invalid start or end index");}
   // Create a copy of the current shape and modify the specified dimension
@@ -209,12 +209,12 @@ void Tensor<T>::slice_put(int dim, int start, int end, Tensor<T> in_data){
   for (size_t i = 0; i < new_size; ++i) {// Iterate through all elements and copy the ones in the slice
     // Calculate the original tensor's index
     size_t original_idx = 0;
-    for (int d = 0; d < shape_.size(); ++d) {
+    for (int d = 0; d < (int) shape_.size(); ++d) {
         if (d == dim) { original_idx += (indices[d] + start) * strides_[d];
         } else {        original_idx += indices[d] * strides_[d];}
     }
     size_t in_idx = 0;
-    for (int d = 0; d < new_shape.size(); ++d){
+    for (int d = 0; d < (int) new_shape.size(); ++d){
       in_idx += in_indices[d]*in_data.strides_[d];
     }
     // update storage with input Tensor's value
@@ -252,7 +252,7 @@ void Tensor<T>::print(){
 template <typename T>
 string Tensor<T>::print_recur(int depth, vector<int> ind){
   std::ostringstream oss;  // Create a stringstream
-  ASSERT_THROW(shape_.size()==ndim_,"len(shape)==ndim");
+  ASSERT_THROW((int)shape_.size()==ndim_,"len(shape)==ndim");
   ASSERT_THROW(shape_.size()==ind.size(),"len(shape)==len(ind)");
   if (depth==ndim_-1){
     for(int i =0; i<shape_[ndim_-1]; i++){

@@ -40,7 +40,7 @@ public:
   void create_new_shape_from_slice(
     const mat<int>& new_slice,
     vector<int>& new_shape){
-    for (int i=0; i<new_slice.size(); i++){
+    for (int i=0; i<(int)new_slice.size(); i++){
       ASSERT_THROW(new_slice[i].size()==2,"slice len should be 2");
       int start = new_slice[i][0];
       int end = new_slice[i][1];

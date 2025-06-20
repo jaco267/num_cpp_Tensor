@@ -19,7 +19,7 @@ namespace nc{
   bool vec_equal(const vector<T>& a, const vector<T>& b){
     ASSERT_THROW(a.size()==b.size(), "two vec should have same size");  
     bool flag = 1;
-    for(int i=0; i< a.size(); i++){
+    for(int i=0; i< (int) a.size(); i++){
       if (a[i]!=b[i]){
         flag = 0;
         break;
@@ -88,11 +88,11 @@ namespace nc{
   }
   template <typename T>
   void print_mat(vector<vector<T>> G){
-      for (int row =0 ; row<G.size(); row++){
+      for (int row =0 ; row<(int)G.size(); row++){
           if (row==0){cout<<"[[";
           }else{      cout<<" [";}
-          for (int col=0; col<G[0].size(); col++){cout<<G[row][col]<<",";} 
-          if (row==G.size()-1){cout<<"]]";
+          for (int col=0; col<(int)G[0].size(); col++){cout<<G[row][col]<<",";} 
+          if (row==(int)G.size()-1){cout<<"]]";
           }else{ cout<<"],";}
           cout<<endl;
       }

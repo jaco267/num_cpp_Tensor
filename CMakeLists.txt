@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 project("main")
 
 find_package(Boost COMPONENTS system thread iostreams)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wsign-compare")
 
 
 add_subdirectory(numcpp)
