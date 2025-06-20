@@ -33,8 +33,6 @@ using namespace nc;
 int main(int argc, char *argv[]){
   int opt; 
   int run_opt = 0;
-  int mc_iter; 
-  bool perf = true;
   while((opt = getopt(argc, argv, ":i:o:p:r:k:x")) != -1) { 
     switch(opt) { 
       case 'o':  run_opt = stoi(optarg);  break; 
