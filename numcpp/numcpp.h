@@ -31,8 +31,8 @@ namespace nc{
   vector<T> mat2vec(const mat<T>& m){
     vector<T> v;
     if (m.size()==0){return v;}
-    for(int r=0;r<m.size(); r++){
-      for(int c=0; c<m[0].size();c++){
+    for(int r=0;r<(int)m.size(); r++){
+      for(int c=0; c<(int)m[0].size();c++){
         v.push_back(m[r][c]);
       }
     }
