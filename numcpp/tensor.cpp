@@ -5,7 +5,7 @@ namespace nc{
 //todo  see practice/C/c_libraries/libtorch/PyNorch/b_my$ 
 template <typename T>
 Tensor<T>::Tensor(vector<T>& data,const vector<int>&shape
-  ): data_(data), shape_(shape){
+  ): shape_(shape),data_(data) {
   ndim_ = shape_.size();
   
   size_ = 1;  
@@ -49,7 +49,7 @@ Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
       }
     }
   }
-  int new_ndim = new_shape.size(); 
+  // int new_ndim = (int)new_shape.size(); 
 
   int size = 1;
   for(int i=0;i<new_shape.size();i++){

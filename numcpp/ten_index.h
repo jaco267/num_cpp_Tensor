@@ -30,7 +30,7 @@ public:
         int& v = *value; 
         start_end_step_vec.push_back(v);
         None_vec_.push_back(0);
-    }else if (auto value = std::get_if<std::monostate>(&start)) {
+    }else if (std::get_if<std::monostate>(&start)) {
         start_end_step_vec.push_back(0); //* default is 0
         None_vec_.push_back(1);
     }
@@ -38,7 +38,7 @@ public:
         int& v = *value; 
         start_end_step_vec.push_back(v);
         None_vec_.push_back(0);
-    }else if (auto value = std::get_if<std::monostate>(&end)) {
+    }else if (std::get_if<std::monostate>(&end)) {
         start_end_step_vec.push_back(-1);
         None_vec_.push_back(1);
     }
@@ -46,7 +46,7 @@ public:
         int& v = *value; 
         start_end_step_vec.push_back(v);
         None_vec_.push_back(0);
-    }else if (auto value = std::get_if<std::monostate>(&step)) {
+    }else if (std::get_if<std::monostate>(&step)) {
         start_end_step_vec.push_back(1);//* default step is 1
         None_vec_.push_back(1);
     }
