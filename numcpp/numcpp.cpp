@@ -58,7 +58,7 @@ void setdiff1d_rev(vector<int> &ones_rows, vector<int> &fixed_rows_list
   }
 }
 
-int bin_mat_sum(const mat<int>&A){
+int sum_mat(const mat<int>&A){
   int sum_val = 0;  
   for (auto row : A){
     for (int val : row){

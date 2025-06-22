@@ -71,7 +71,7 @@ namespace nc{
   void setdiff1d_rev(vector<int> &ones_rows, vector<int> &fixed_rows_list 
        ,vector<int> &del_rows);
   template <typename T>
-  T np_sum(vector<T> v){
+  T sum_vec(vector<T> v){
     T sum = 0;
     for (unsigned i =0; i< v.size(); i++){
       sum += v[i];
@@ -106,7 +106,7 @@ namespace nc{
     cout<<"]";
     if (newline>0){ cout << endl;}
   } 
-  int bin_mat_sum(const mat<int> &A);
+  int sum_mat(const mat<int> &A);
   mat<int> bin_mat_mul(const mat<int> &A, const mat<int> & B);
   //* -----basic---------
   int bin_to_dec(const vector<int>& bin_list);

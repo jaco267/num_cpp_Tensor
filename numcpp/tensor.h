@@ -46,6 +46,11 @@ public:
     init_tensor(v, shape);
 
   }
+  Tensor<T> add(const Tensor<T>& a){
+    Tensor<T> out; 
+    
+    return out;
+  }
   //*-----tensor index_utils.cpp-----
   T index(vector<int> indices);
   T index(std::initializer_list<int> indices){
@@ -63,8 +68,9 @@ public:
   //*-----------------------
 public:
   vector<int> shape_;  
-private:
-  vector<T> data_;  
+
+  vector<T> data_; 
+private: 
   vector<int> strides_;  
   int ndim_; 
   int size_;

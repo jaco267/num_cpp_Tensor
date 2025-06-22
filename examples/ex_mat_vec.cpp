@@ -53,7 +53,7 @@ void ex2(){
     cout<<"F4"<<endl;
     print_mat(F4);
     mat<int>e1 = eye<int>(4);  
-    cout<<"sum(e1)="<<bin_mat_sum(e1)<<endl;
+    cout<<"sum(e1)="<<sum_mat(e1)<<endl;
     mat<int>res = bin_mat_mul(e1,F4);  
     cout<<"(F4@e1)%2="<<endl;
     print_mat(res);
