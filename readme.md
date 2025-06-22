@@ -11,7 +11,9 @@ It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
 
 ### exmaples 
 <!-- - (for more example, see z_example/ folder) -->
-- there is --opt 0~5
+- there is --opt 0~6 (vec_mat) and --opt 10~13 (tensor)
+
+
 ####  init 2D matrix : zeros, eye
 
 ```sh
