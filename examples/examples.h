@@ -23,4 +23,6 @@ void ex6();
 void ex10();
 void ex11();
 void ex12();
+void ex13();
+void ex14();
 //*----todod

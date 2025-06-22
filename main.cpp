@@ -55,8 +55,14 @@ int main(int argc, char *argv[]){
     ex10();
   }else if(run_opt==11){
     ex11();
-  }else{
+  }else if(run_opt==12){
     ex12();
+  }else if(run_opt==13){
+    ex13();
+  }else if(run_opt==14){
+    ex14();
+  }else{
+     throw std::invalid_argument( "--opt should be 0~6 or 10~14" );
   }
     return 0;
 }

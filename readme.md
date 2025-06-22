@@ -10,7 +10,7 @@ It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
   - dec_to_bin/ mat2comp_vec/comp_vec2mat/ swap_row/ add_row
 
 ### exmaples 
-<!-- - (for more example, see z_example/ folder) -->
+(for more example, see z_example/ folder) 
 - there is --opt 0~6 (vec_mat) and --opt 10~13 (tensor)
 
 
