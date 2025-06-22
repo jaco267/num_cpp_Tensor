@@ -7,12 +7,10 @@ template <typename T>
 Tensor<T>::Tensor(vector<T>& data,const vector<int>&shape
   ): shape_(shape),data_(data) {
   ndim_ = shape_.size();
-  
   size_ = 1;  
   for (int i =0 ; i<ndim_; i++){
     size_*=shape_[i];
   }
-  
   ASSERT_THROW(size_==(int)data_.size(),"data size should equal to multiplication of shape ");
   int stride = 1;  
   strides_.resize(ndim_,0);

@@ -7,8 +7,8 @@
 #include <random>
 #include <algorithm> //sort
 #include <map>
-// using namespace std;  //todo wait this is weird if I uncomment this some nasty error occurs
-//todo avoid using namespace std, otherwise it will cause conflict between 
+// using namespace std_;  //todo wait this is weird if I uncomment this some nasty error occurs
+//todo avoid using namespace std_, otherwise it will cause conflict between 
 using std::vector;
 using std::cout;
 using std::endl;
