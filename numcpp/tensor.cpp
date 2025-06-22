@@ -5,8 +5,14 @@ namespace nc{
 //*Explicit template
 //todo  see practice/C/c_libraries/libtorch/PyNorch/b_my$ 
 template <typename T>
-Tensor<T>::Tensor(vector<T>& data,const vector<int>&shape
-  ): shape_(shape),data_(data) {
+Tensor<T>::Tensor(vector<T>& data, const vector<int>&shape
+  ){
+  init_tensor(data,shape);
+}
+template <typename T>
+void Tensor<T>::init_tensor(vector<T>& data, const vector<int>&shape){
+  shape_ = shape;
+  data_ = data;
   ndim_ = shape_.size();
   size_ = 1;  
   for (int i =0 ; i<ndim_; i++){
@@ -19,6 +25,7 @@ Tensor<T>::Tensor(vector<T>& data,const vector<int>&shape
     strides_[i] = stride; stride *= shape_[i];
   }
 }
+  
 template <typename T>
 Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
   int total_elements = size_;

@@ -21,14 +21,23 @@ void ex3(){ //* init Tensor : zeros, ones arange,  reshape, toVec, toMat
     Tensor<float> T0_r = T0.reshape(new_shape);
     T0_r.info();
     mat<float> mm = T0_r.toMat();
-    cout<<"matrix version:\n";
+    cout<<"Tensor 2 matrix:\n";
+    mm[0][0] = 3;
     print_mat(mm);
-
+    mm[0][1] = 4;
+    vector<float> one_vec6 = ones_vec<float>((int)mm[0].size());
+    mm.push_back(one_vec6);
+    cout<<"Matrix 2 tensor:\n";
+    T0_r.fromMat(mm);
+    T0_r.info();
     Tensor<float> newv2 = T0.reshape({-1});
     newv2.info();
     vector<float> vv = newv2.toVec();
     cout<<"vector version:";
     print_vec(vv);
+    cout<<"3 dim tensor";
+    newv2 = newv2.reshape({2,3,2});
+    newv2.info();
 }
 void ex4(){
     cout<<"-----nc::tensor---"<<endl;
