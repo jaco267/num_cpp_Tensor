@@ -5,12 +5,12 @@ namespace nc{
 //*Explicit template
 //todo  see practice/C/c_libraries/libtorch/PyNorch/b_my$ 
 template <typename T>
-Tensor<T>::Tensor(vector<T>& data, const vector<int>&shape
+Tensor<T>::Tensor(const vector<T>& data, const vector<int>&shape
   ){
   init_tensor(data,shape);
 }
 template <typename T>
-void Tensor<T>::init_tensor(vector<T>& data, const vector<int>&shape){
+void Tensor<T>::init_tensor(const vector<T>& data, const vector<int>&shape){
   shape_ = shape;
   data_ = data;
   ndim_ = shape_.size();

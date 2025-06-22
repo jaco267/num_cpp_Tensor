@@ -1,6 +1,6 @@
 #include "examples.h"
 using namespace nc::indexing; 
-void ex3(){ //* init Tensor : zeros, ones arange,  reshape, toVec, toMat
+void ex10(){ //* init Tensor : zeros, ones arange,  reshape, toVec, toMat
     //** init Tensor with vector */
     vector<int> zz = zeros_vec<int>(16); zz[0]=3; zz[5]=9;
     vector<int> shape = {4,4};
@@ -39,7 +39,7 @@ void ex3(){ //* init Tensor : zeros, ones arange,  reshape, toVec, toMat
     newv2 = newv2.reshape({2,3,2});
     newv2.info();
 }
-void ex4(){
+void ex11(){
     cout<<"-----nc::tensor---"<<endl;
     vector<float> zz2 = {0.1,0.3,0.2,-1.1,2.3,6.1};
     Tensor<float> v1 {zz2,{2,3}};
@@ -57,7 +57,7 @@ void ex4(){
     v1.slice_put(/*dim*/1,1,3, p_val);
     v1.info();
 }
-void ex5(){
+void ex12(){
     // nc::indexing::Slice(0,1,std::monostate{});
 
   nc::indexing::Slice(1);

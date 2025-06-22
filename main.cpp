@@ -44,18 +44,19 @@ int main(int argc, char *argv[]){
       printf("extra arguments: %s\n", argv[optind]); 
   } 
   //*-------------------------
-  if (run_opt==0){
-    ex0();
-  }else if (run_opt==1){ //numcpp_2D nc_init.cpp
-    ex1();
-  }else if (run_opt==2){
-    ex2();
-  }else if(run_opt==3){
-    ex3();
-  }else if(run_opt==4){
-    ex4();
+  if (run_opt==0){ ex0();
+  }else if (run_opt==1){ex1(); //numcpp_2D nc_init.cpp
+  }else if (run_opt==2){ex2();
+  }else if (run_opt==3){ex3();
+  }else if (run_opt==4){ex4();
+  }else if (run_opt==5){ex5();
+  }else if (run_opt==6){ex6();
+  }else if(run_opt==10){
+    ex10();
+  }else if(run_opt==11){
+    ex11();
   }else{
-    ex5();
+    ex12();
   }
     return 0;
 }

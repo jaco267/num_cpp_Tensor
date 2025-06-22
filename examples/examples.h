@@ -15,8 +15,12 @@ using namespace nc;
 void ex0();
 void ex1();
 void ex2();
-//* ex_ten_basic
 void ex3();
 void ex4();
 void ex5();
+void ex6();
+//* ex_ten_basic
+void ex10();
+void ex11();
+void ex12();
 //*----todod

@@ -1,7 +1,6 @@
 #include "numcpp.h"
 namespace nc{
 const uint32_t E2MAX = (1ULL << 32) - 1;
-
 mat<int>kron(const mat<int>& A, const mat<int>& B) {
     size_t a_rows = A.size();
     size_t a_cols = A[0].size();
@@ -30,7 +29,9 @@ mat<int>hstack3(const mat<int>& A, const mat<int>& B, const mat<int>& C) {
   }
   return result;
 }
-vector<int> setdiff1d(const vector<int> &input, const vector<int> &diff_list){
+vector<int> setdiff1d(const vector<int> &input, 
+  const vector<int> &diff_list
+){
   vector<int> ret_rows;
   bool flag; 
   for(unsigned i = 0; i<input.size(); i++){
@@ -129,5 +130,4 @@ void add_row(mat<int>&a, int i, int j){
   
 
 }
-
 

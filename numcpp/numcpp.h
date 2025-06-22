@@ -14,78 +14,52 @@ using std::cout;
 using std::endl;
 #include "nc_def.h"
 #include "nc_init.h"
+#include "nc_vec.h"
 namespace nc{
-  template <typename T>
-  bool vec_equal(const vector<T>& a, const vector<T>& b){
-    ASSERT_THROW(a.size()==b.size(), "two vec should have same size");  
-    bool flag = 1;
-    for(int i=0; i< (int) a.size(); i++){
-      if (a[i]!=b[i]){
-        flag = 0;
-        break;
-      }
+
+template <typename T>
+vector<T> mat2vec(const mat<T>& m){
+  vector<T> v;
+  if (m.size()==0){return v;}
+  for(int r=0;r<(int)m.size(); r++){
+    for(int c=0; c<(int)m[0].size();c++){
+      v.push_back(m[r][c]);
     }
-    return flag;
   }
-  template <typename T>
-  vector<T> mat2vec(const mat<T>& m){
-    vector<T> v;
-    if (m.size()==0){return v;}
-    for(int r=0;r<(int)m.size(); r++){
-      for(int c=0; c<(int)m[0].size();c++){
-        v.push_back(m[r][c]);
-      }
+  return v;
+}
+template <typename T>
+mat<T> vec2mat(const vector<T>& v, int row, int col){
+  mat<T> m;
+  if (v.size()==0){return m;}
+  for(int r=0;r<row; r++){
+    vector<T> row_vector;
+    for(int c=0; c<col;c++){
+      row_vector.push_back(v[r*col+c]);
     }
-    return v;
+    m.push_back(row_vector);
   }
-  template <typename T>
-  mat<T> vec2mat(const vector<T>& v, int row, int col){
-    mat<T> m;
-    if (v.size()==0){return m;}
-    for(int r=0;r<row; r++){
-      vector<T> row_vector;
-      for(int c=0; c<col;c++){
-        row_vector.push_back(v[r*col+c]);
-      }
-      m.push_back(row_vector);
-    }
-    return m;
-  }
-  //* https://gist.github.com/HViktorTsoi/58eabb4f7c5a303ced400bcfa816f6f5
-  template<typename T>
-  std::vector<size_t> argsort(const std::vector<T> &array) {
-      std::vector<size_t> indices(array.size());
-      std::iota(indices.begin(), indices.end(), 0);
-      std::sort(indices.begin(), indices.end(),
-                [&array](int left, int right) -> bool {
-                    // sort indices according to corresponding array element
-                    return array[left] < array[right];
-                });
-  
-      return indices;
-  }
+  return m;
+}
+//* https://gist.github.com/HViktorTsoi/58eabb4f7c5a303ced400bcfa816f6f5
+template<typename T>
+std::vector<size_t> argsort(const std::vector<T> &array) {
+    std::vector<size_t> indices(array.size());
+    std::iota(indices.begin(), indices.end(), 0);
+    std::sort(indices.begin(), indices.end(),
+              [&array](int left, int right) -> bool {
+                  // sort indices according to corresponding array element
+                  return array[left] < array[right];
+              });
+
+    return indices;
+}
 
   mat<int> kron(const mat<int>& A, const mat<int>& B);
   mat<int> hstack3(const mat<int> & A, const mat<int> & B, const mat<int>& C);
   vector<int> setdiff1d(const vector<int> &input, const vector<int> &diff_list);
   void setdiff1d_rev(vector<int> &ones_rows, vector<int> &fixed_rows_list 
        ,vector<int> &del_rows);
-  template <typename T>
-  T sum_vec(vector<T> v){
-    T sum = 0;
-    for (unsigned i =0; i< v.size(); i++){
-      sum += v[i];
-    }
-    return sum;
-  }
-  template <typename T>
-  T mul_vec(const vector<T>& v){
-    T val = 1; 
-    for (unsigned i =0; i< v.size(); i++){
-      val *= v[i];
-    }
-    return val;
-  }
   template <typename T>
   void print_mat(vector<vector<T>> G){
       for (int row =0 ; row<(int)G.size(); row++){
@@ -97,15 +71,6 @@ namespace nc{
           cout<<endl;
       }
   }
-  
-  template <typename T>
-  void print_vec(vector<T> v, int newline=1){
-  //   for (int row =0 ; row<v.size(); row++){cout<<v[row]<<" "; } cout<<endl;
-    cout<<"[";
-    for (const T& elem : v) {cout << elem << ",";}
-    cout<<"]";
-    if (newline>0){ cout << endl;}
-  } 
   int sum_mat(const mat<int> &A);
   mat<int> bin_mat_mul(const mat<int> &A, const mat<int> & B);
   //* -----basic---------

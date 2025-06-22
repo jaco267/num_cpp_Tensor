@@ -21,10 +21,14 @@ class Tensor{
 public: 
   Tensor(){}
 
-  Tensor(vector<T>& data,const vector<int>&shape);
+  Tensor(const vector<T>& data,const vector<int>&shape);
+
+  Tensor(std::initializer_list<T> data,std::initializer_list<int> shape
+  ): Tensor(vector<T>(data.begin(), data.end()), 
+            vector<int>(shape.begin(), shape.end())){};
   Tensor(vector<T>& data,std::initializer_list<int> shape
   ): Tensor(data, vector<int>(shape.begin(), shape.end())){};
-  void init_tensor(vector<T>& data, const vector<int>&shape);
+  void init_tensor(const vector<T>& data, const vector<int>&shape);
   
   Tensor<T> reshape(vector<int> new_shape);
   Tensor<T> reshape(std::initializer_list<int> new_shape){
@@ -47,8 +51,11 @@ public:
 
   }
   Tensor<T> add(const Tensor<T>& a){
-    Tensor<T> out; 
     
+    ASSERT_THROW(vec_equal(a.shape_, shape_),"add:currently a need to have same shape");
+    ASSERT_THROW(a.data_.size()==data_.size(),"add: data should have same size");
+    vector<T> out_v = sum_vec<T>(a.data_, data_);  
+    Tensor<T> out (out_v, shape_); 
     return out;
   }
   //*-----tensor index_utils.cpp-----
