@@ -85,7 +85,7 @@ void ex2(){
     cout<<"back to vec"<<endl;
     print_vec(l2);
     cout<<"F4 to compressed int vector"<<endl;  
-    vector<int> F4_i = mat2comp_vec(F4); 
+    vector<int> F4_i = mat2comp_vec<int>(F4); 
     print_vec(F4_i);
     cout<<"back to mat"<<endl; 
     print_mat(comp_vec2mat(F4_i, F4.size()));

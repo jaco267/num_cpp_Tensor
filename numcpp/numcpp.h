@@ -111,11 +111,14 @@ namespace nc{
   //* -----basic---------
   int bin_to_dec(const vector<int>& bin_list);
   vector<int> dec_to_bin(int n, int x);
-  vector<int> mat2comp_vec(const mat<int>& g);
-  
   template <typename T>
-  vector<T> mat2comp_vec_t(const mat<T>& g){
+  vector<T> mat2comp_vec(const mat<T>& g){
     vector<T> g_list;  
+    if (g.size()>0){
+      if (g[0].size()>=32){
+        cout<<"warning  overflow at mat2comp_vec"<<endl;
+      }
+    }  
     for (auto row : g){
       T val = 0;  
       for (unsigned i =0; i< row.size(); i++){
