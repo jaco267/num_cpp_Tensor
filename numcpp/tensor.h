@@ -40,7 +40,17 @@ public:
   void fromMat(const mat<T>& m);
   //*-----tensor_arith.cpp----
   Tensor<T> add(const Tensor<T>& a);
-  Tensor<T> minus();
+  Tensor<T> add(T a);
+  Tensor<T> minus() const;
+  Tensor<T> minus(const Tensor<T>& a){return add(a.minus());}
+  Tensor<T> minus(T a){return add(-a);}
+  Tensor<T> mul(const Tensor<T>& a);
+  Tensor<T> mul(T a);
+  Tensor<T> div1() const;
+  Tensor<T> div(const Tensor<T>& a){return mul(a.div1()); }
+  Tensor<T> div(T a){if (a==0){ throw std::invalid_argument( "div by zero error" );}
+    return mul(1/a); 
+  }
   //*-----tensor index_utils.cpp-----
   T index(vector<int> indices);
   T index(std::initializer_list<int> indices){

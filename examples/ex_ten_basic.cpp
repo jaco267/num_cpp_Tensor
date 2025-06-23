@@ -137,6 +137,8 @@ void ex15(){
   t00 = arange<float>(0,3); 
   t11 = arange<float>(-1,3); 
   t22 = arange<float>(100,106);
-  s2 = hstack({t00,t11,t22});
+  s2 = hstack({t00,t11,t22}); 
+  //or vector<Tensor<float>> stack_tensors = {t00,t11,t22}
+  // s2 =hstack(stack_tensors)
   s2.info();
 }

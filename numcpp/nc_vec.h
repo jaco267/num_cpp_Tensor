@@ -14,30 +14,42 @@ bool vec_equal(const vector<T>& a, const vector<T>& b){
   return flag;
 }
 template <typename T>
-T sum_vec(vector<T> v){
+T sum_vec(vector<T> v){//* sum of a vector
   T sum = 0;
-  for (unsigned i =0; i< v.size(); i++){
-    sum += v[i];
-  }
+  for (unsigned i =0; i< v.size(); i++){ sum += v[i];}
   return sum;
 }
 template <typename T>
 vector<T> sum_vec(vector<T> a, vector<T> b){
   vector<T> out;
   ASSERT_THROW(a.size()==b.size(), "sum_vec(a,b):two vec should have same size");  
-  
-  for (unsigned i =0; i< a.size(); i++){
-    out.push_back(a[i]+b[i]);
-  }
+  for (unsigned i =0; i< a.size(); i++){out.push_back(a[i]+b[i]);}
   return out;
 }
 template <typename T>
-T mul_vec(const vector<T>& v){
+vector<T> sum_vec(vector<T> a, T b){
+  vector<T> out;
+  for (unsigned i =0; i< a.size(); i++){out.push_back(a[i]+b);}
+  return out;
+}
+template <typename T>
+T mul_vec(const vector<T>& v){//* mul of all element in a vector
   T val = 1; 
-  for (unsigned i =0; i< v.size(); i++){
-    val *= v[i];
-  }
+  for (unsigned i =0; i< v.size(); i++){val *= v[i];}
   return val;
+}
+template <typename T>
+vector<T> mul_vec(vector<T> a, vector<T> b){
+  vector<T> out;
+  ASSERT_THROW(a.size()==b.size(), "mul_vec(a,b):two vec should have same size");  
+  for (unsigned i =0; i< a.size(); i++){out.push_back(a[i]*b[i]);}
+  return out;
+}
+template <typename T>
+vector<T> mul_vec(vector<T> a, T b){
+  vector<T> out;
+  for (unsigned i =0; i< a.size(); i++){out.push_back(a[i]*b);}
+  return out;
 }
 template <typename T>
 void print_vec(vector<T> v, int newline=1){
