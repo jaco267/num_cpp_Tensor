@@ -135,7 +135,17 @@ mat<T> Tensor<T>::toMat(){
   }
   return m;
 }
-
+template <typename T>
+void Tensor<T>::fromMat(const mat<T>& m){
+  if (m.size()==0){
+     throw std::invalid_argument( "mat_size should > 0" );
+  }
+  int row_size =(int) m.size();
+  int col_size =(int) m[0].size(); 
+  vector<int> shape = {row_size,col_size}; 
+  vector<T> v = mat2vec<T>(m); 
+  init_tensor(v, shape);
+}
 }
 
 #include "explicit_init.cpp"

@@ -20,9 +20,7 @@ template <typename T>
 class Tensor{
 public: 
   Tensor(){}
-
   Tensor(const vector<T>& data,const vector<int>&shape);
-
   Tensor(std::initializer_list<T> data,std::initializer_list<int> shape
   ): Tensor(vector<T>(data.begin(), data.end()), 
             vector<int>(shape.begin(), shape.end())){};
@@ -39,25 +37,10 @@ public:
   string print_recur(int depth, vector<int> index);
   vector<T> toVec();
   mat<T> toMat();
-  void fromMat(const mat<T>& m){
-    if (m.size()==0){
-       throw std::invalid_argument( "mat_size should > 0" );
-    }
-    int row_size =(int) m.size();
-    int col_size =(int) m[0].size(); 
-    vector<int> shape = {row_size,col_size}; 
-    vector<T> v = mat2vec<T>(m); 
-    init_tensor(v, shape);
-
-  }
-  Tensor<T> add(const Tensor<T>& a){
-    
-    ASSERT_THROW(vec_equal(a.shape_, shape_),"add:currently a need to have same shape");
-    ASSERT_THROW(a.data_.size()==data_.size(),"add: data should have same size");
-    vector<T> out_v = sum_vec<T>(a.data_, data_);  
-    Tensor<T> out (out_v, shape_); 
-    return out;
-  }
+  void fromMat(const mat<T>& m);
+  //*-----tensor_arith.cpp----
+  Tensor<T> add(const Tensor<T>& a);
+  Tensor<T> minus();
   //*-----tensor index_utils.cpp-----
   T index(vector<int> indices);
   T index(std::initializer_list<int> indices){

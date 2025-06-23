@@ -51,18 +51,16 @@ int main(int argc, char *argv[]){
   }else if (run_opt==4){ex4();
   }else if (run_opt==5){ex5();
   }else if (run_opt==6){ex6();
-  }else if(run_opt==10){
-    ex10();
-  }else if(run_opt==11){
-    ex11();
-  }else if(run_opt==12){
-    ex12();
-  }else if(run_opt==13){
-    ex13();
-  }else if(run_opt==14){
-    ex14();
+  //*-----tensor-----
+  }else if(run_opt==10){ex10();
+  }else if(run_opt==11){ex11();
+  }else if(run_opt==12){ex12();
+  }else if(run_opt==13){ex13();
+  }else if(run_opt==14){ex14();
+  }else if(run_opt==15){ex15();
   }else{
-     throw std::invalid_argument( "--opt should be 0~6 or 10~14" );
+     throw std::invalid_argument( 
+      "--opt should be 0~6 or 10~15" );
   }
     return 0;
 }

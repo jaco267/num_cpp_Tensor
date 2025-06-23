@@ -107,8 +107,36 @@ void ex14(){
   Tensor<float> t2 ({0.5,0.3,
                      0.1,-0.1}, {2,2});
   Tensor<float> t3 = arange<float> (0,4).reshape({2,2});
+  cout<<"t2----"<<endl;
   t2.info();
+  cout<<"t3----"<<endl;
   t3.info();
+  cout<<"t4 = t2+t3------"<<endl;
   Tensor<float> t4 = t2.add(t3); 
+  cout<<"t2 will not change----"<<endl;
+  t2.info();
+  cout<<"t4----"<<endl;
   t4.info();
+  cout<<"t5 = -t4----"<<endl;
+  Tensor<float> t5 = t4.minus();
+  cout<<"t4 will not change---"<<endl;
+  t4.info();
+  cout<<"---t5---"<<endl;
+  t5.info();
+}
+void ex15(){
+  //* hstack only support 1D and 2D (because its weird to do hstack at 3d or 4d, concatentate makes more sense)  
+  //todo implemnt concatenate, implement vstack
+  cout<<"---hstack 2D----"<<endl;
+  Tensor<float> t00 = arange<float>(0,6).reshape({2,-1});
+  Tensor<float> t11 = arange<float>(-1,3).reshape({2,-1});
+  Tensor<float> t22 = arange<float>(100,106).reshape({2,-1});
+  Tensor<float> s2 = hstack({t00,t11,t22});
+  s2.info();
+  cout<<"---hstack 1D----"<<endl;
+  t00 = arange<float>(0,3); 
+  t11 = arange<float>(-1,3); 
+  t22 = arange<float>(100,106);
+  s2 = hstack({t00,t11,t22});
+  s2.info();
 }
