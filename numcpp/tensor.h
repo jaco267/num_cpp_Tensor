@@ -66,6 +66,8 @@ public:
     mat<int>& new_slice);
   Tensor<T> index(const vector<nc_Slice_Index>& indices);
   void index_put(const vector<nc_Slice_Index>& indices,
+     T in_data);
+  void index_put(const vector<nc_Slice_Index>& indices,
      const Tensor<T> & in_data);
   Tensor<T> slice(int dim, int start, int end);
   void slice_put(int dim, int start, int end, Tensor<T> in_data);

@@ -106,5 +106,63 @@ Tensor<T> vstack(const vector<Tensor<T>>& tensors) {
   else {throw std::invalid_argument("Currently only support 1D and 2D vstack");}
 }
 
+template <typename T>
+Tensor<T> max(const Tensor<T>& input, int dim, bool keepdim = false) {
+    // Validate input dimension
+    if (dim < 0 || dim >= static_cast<int>(input.shape_.size())) {
+        throw std::invalid_argument("Dimension out of range");
+    }
+    const auto& shape = input.shape_;
+    const auto& data = input.data_;
+    // Calculate output shape
+    std::vector<int> out_shape;
+    for (int i = 0; i < static_cast<int>(shape.size()); ++i) {
+        if (i == dim) {
+            if (keepdim) out_shape.push_back(1);
+        } else {
+            out_shape.push_back(shape[i]);
+        }
+    }
 
+    // Special case: if reducing all dimensions (like numpy's max())
+    if (shape.size() == 1 && !keepdim) {
+        T max_val = *std::max_element(data.begin(), data.end());
+        return Tensor<T>({max_val}, {});
+    }
+
+    // Calculate strides and sizes for iteration
+    int outer_size = 1;
+    for (int i = 0; i < dim; ++i) {
+        outer_size *= shape[i];
+    }
+
+    int inner_size = 1;
+    for (int i = dim + 1; i < static_cast<int>(shape.size()); ++i) {
+        inner_size *= shape[i];
+    }
+
+    int dim_size = shape[dim];
+    int step = inner_size * dim_size;
+
+    // Compute max values
+    std::vector<T> out_data;
+    out_data.reserve(outer_size * inner_size);
+
+    for (int outer = 0; outer < outer_size; ++outer) {
+        for (int inner = 0; inner < inner_size; ++inner) {
+            T current_max = data[outer * step + inner];
+            
+            for (int d = 1; d < dim_size; ++d) {
+                T val = data[outer * step + d * inner_size + inner];
+                if (val > current_max) {
+                    current_max = val;
+                }
+            }
+            
+            out_data.push_back(current_max);
+        }
+    }
+
+    return Tensor<T>(out_data, out_shape);
+}
 }

@@ -91,11 +91,14 @@ void ex13(){
   cout<<"----v1[2:4,1,:]---"<<endl;
   Tensor <float> out_v1 = v1.index({Slice(2,4),1,None});
   out_v1.info();
-  cout<<"----v1[2,:,1:]=0---"<<endl;
-  Tensor<float> put0 = zeros<float>({1,2,2});
+  cout<<"----v1[2,:,1:]=put0---"<<endl;
+  Tensor<float> put0 = arange<float>(0,4).reshape({1,2,2});
 //   put0.info();
   v1.index_put({2,Slice(None),Slice(1)},put0);
-  v1.info();
+  cout<<v1;
+  cout<<"----v1[0:2,0,:]=1000---"<<endl;
+  v1.index_put({Slice(0,2),0,None}, 1000);
+  cout<<v1;
   cout<<"----indexing[2:4]:";
   cout<<nc::indexing::Slice(2,4)<<endl;
   cout<<"----indexing[:4]: ";
@@ -196,4 +199,13 @@ void ex16(){
   t22 = arange<float>(100,104);
   s2 = vstack({t00,t11,t22});
   cout<<s2;
+}
+void ex17(){
+  Tensor<float> t0 = arange<float>(100,106).reshape({2,-1});
+  t0.index_put({0,1}, 200.0f);
+  Tensor<float> t1 = max(t0, /*dim*/0);
+  cout<<"t0---\n"<<t0;
+  cout<<"max(t0,dim=0)---\n"<<t1;
+  t1 = max(t0, /*dim*/1);
+  cout<<"max(t0,dim=1)---\n"<<t1;
 }

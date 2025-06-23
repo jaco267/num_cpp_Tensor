@@ -115,27 +115,50 @@ Tensor<T> Tensor<T>::index(const vector<nc_Slice_Index>& slice_indices){
 template <typename T>
 void Tensor<T>::index_put(
   const vector<nc_Slice_Index>& slice_indices,
-  const Tensor<T> & in_data){
+  T  in_data
+){
   ASSERT_THROW(slice_indices.size()==shape_.size(),"mult size should be equal to shape size");
   mat<int> new_slice;   //store the [start:end,start:end..]
   extract_slice_index(slice_indices,new_slice);
-  // cout<<"---new_slice---"<<endl;print_mat(new_slice);
   ASSERT_THROW(new_slice.size()==shape_.size(),"currently new shape size must ==shape size");
   vector<int> new_shape;  
   create_new_shape_from_slice(new_slice,new_shape);
-  //* self.shape (4,2,3)
-  //* new_shape == in_data.shape_ == (2,1,3)
-  // cout<<"new_shape:";
-  // print_vec(new_shape);print_vec(in_data.shape_);
-  ASSERT_THROW(vec_equal(new_shape, in_data.shape_),"put tensor should have same shape as new_shape(currently no broadcast)");
-
   int new_size = mul_vec(new_shape); //* 2*3 = 6
-  vector<T> new_data;
-  new_data.reserve(new_size);
+  vector<int> indices(shape_.size(), 0);//* indices for current iteration's row and col 
+  ASSERT_THROW(shape_.size()==new_slice.size(),"currently shape must equal otherwise original idx will have error");
+  for (size_t i = 0; i < (size_t) new_size; ++i){
+     // Calculate the original tensor's index
+    size_t original_idx = 0;
+    for (int d = 0; d < (int) shape_.size(); ++d) {
+      int start = new_slice[d][0];
+      original_idx += (indices[d] + start) * strides_[d];
+    }
+    // update storage with input Tensor's value
+    data_[original_idx] = in_data;
+    // Update indices (row-major order)  indices 000 -> 001  -> 010 -> ...
+    for (int d = shape_.size() - 1; d >= 0; --d) {
+        indices[d]++;
+        if (indices[d] < new_shape[d]) {break;}
+        indices[d] = 0;
+    }
+  }
+}
+template <typename T>
+void Tensor<T>::index_put(
+  const vector<nc_Slice_Index>& slice_indices,
+  const Tensor<T> & in_data
+){
+  ASSERT_THROW(slice_indices.size()==shape_.size(),"mult size should be equal to shape size");
+  mat<int> new_slice;   //store the [start:end,start:end..]
+  extract_slice_index(slice_indices,new_slice);
+  ASSERT_THROW(new_slice.size()==shape_.size(),"currently new shape size must ==shape size");
+  vector<int> new_shape;  
+  create_new_shape_from_slice(new_slice,new_shape);
+  ASSERT_THROW(vec_equal(new_shape, in_data.shape_),"put tensor should have same shape as new_shape(currently no broadcast)");
+  int new_size = mul_vec(new_shape); //* 2*3 = 6
   vector<int> indices(shape_.size(), 0);//* indices for current iteration's row and col 
   ASSERT_THROW(shape_.size()==new_slice.size(),"currently shape must equal otherwise original idx will have error");
   vector<int> in_indices(new_shape.size(),0);
-  
   for (size_t i = 0; i < (size_t) new_size; ++i){
      // Calculate the original tensor's index
     size_t original_idx = 0;
@@ -161,7 +184,6 @@ void Tensor<T>::index_put(
         in_indices[d] = 0;
     }
   }
-
 }
 template <typename T>
 Tensor<T> Tensor<T>::slice(int dim, int start, int end){
