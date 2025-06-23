@@ -183,5 +183,5 @@ void ex16(){
   s2 = hstack({t00,t11,t22}); 
   //or vector<Tensor<float>> stack_tensors = {t00,t11,t22}
   // s2 =hstack(stack_tensors)
-  s2.info();
+  cout<<"s2:"<<s2; //* cout is same as s2.info()
 }

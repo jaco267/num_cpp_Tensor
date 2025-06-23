@@ -32,9 +32,13 @@ public:
   Tensor<T> reshape(std::initializer_list<int> new_shape){
     return reshape(vector<int>(new_shape));
   };
-  void info();
-  void print();
-  string print_recur(int depth, vector<int> index);
+  void info() ;
+  friend std::ostream& operator<<(std::ostream& os, Tensor& ten) {
+      ten.info();
+      return os;
+  }
+  void print() ;
+  string print_recur(int depth, vector<int> index) ;
   vector<T> toVec();
   mat<T> toMat();
   void fromMat(const mat<T>& m);

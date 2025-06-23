@@ -67,14 +67,14 @@ Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
 }
 
 template <typename T>
-void Tensor<T>::info(){
+void Tensor<T>::info() {
   print();
   cout<<" n_dim:"<<ndim_<<", size:"<<size_<<", strides:";
   print_vec(strides_,0);
   cout<<", shape:"; print_vec(shape_);
 }
 template <typename T>
-void Tensor<T>::print(){
+void Tensor<T>::print() {
   vector<int> index = zeros_vec<int>(ndim_);
   string result = "tensor([\n";
   result+=print_recur(0,index);
@@ -82,7 +82,8 @@ void Tensor<T>::print(){
   cout<<result;
 }
 template <typename T>
-string Tensor<T>::print_recur(int depth, vector<int> ind){
+string Tensor<T>::print_recur(
+  int depth, vector<int> ind) {
   std::ostringstream oss;  // Create a stringstream
   ASSERT_THROW((int)shape_.size()==ndim_,"len(shape)==ndim");
   ASSERT_THROW(shape_.size()==ind.size(),"len(shape)==len(ind)");
