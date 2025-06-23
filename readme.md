@@ -2,8 +2,8 @@
 ### simple Tensor library in c++
 
 A simple Tensor library for N dimension tensor  
-, 2D matrix (ex. vector<vector<int>>)   
-and 1D vector  (ex. vector<int>)    
+, 2D matrix (ex. `vector<vector<int>>`)   
+and 1D vector  (ex. `vector<int>`)    
 
 ### exmaples 
 (for more example, see z_example/ folder) 
