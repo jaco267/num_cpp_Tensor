@@ -137,7 +137,8 @@ void ex14(){
   4.2 5.8
   */
   t5.info();
-  t5 = t5.minus(-1);
+  cout<<"----t5.minus(scalar=-1)  : t5-(-1) ---"<<endl;
+  t5 = t5.minus(-1);  
   /*
   2   3.6
   5.2 6.8
