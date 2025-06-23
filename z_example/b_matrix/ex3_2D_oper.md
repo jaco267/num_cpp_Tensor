@@ -2,7 +2,7 @@
 #### 1D vector and 2d matrix 
 - binary multiplication of 2 matrix, setdiff1d
 ```sh
-python run.py --opt 2 --delete False
+python run.py --opt 3 --delete False
 ```
 
 ```

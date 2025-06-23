@@ -1,6 +1,6 @@
 ## Ndim Tensor init (zeros, ones arange,  reshape, toVec, toMat)
 ```sh
-python run.py --opt 3 --delete False
+python run.py --opt 10 --delete False
 ```
 - for a tensor (dimision > 2)  
 - currently we only support print (info()) ,init (zeros,ones,arange..), indexing, reshape 

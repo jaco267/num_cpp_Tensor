@@ -53,24 +53,6 @@ void ex11(){
   newv2.info();
 }
 void ex12(){
-  cout<<"-----nc::tensor---"<<endl;
-  vector<float> zz2 = {0.1,0.3,0.2,-1.1,2.3,6.1};
-  Tensor<float> v1 {zz2,{2,3}};
-  cout<<"v1\n";
-  v1.info();
-  cout<<"v1[0,0]:"<<v1.index({0,0})<<endl;
-  vector<int> id0 = {0,1};
-  cout<<"v1[0,1]:"<<v1.index(id0)<<endl;
-  cout<<"----slice---"<<endl;
-  Tensor<float> vout = v1.slice(/*dim*/1,1,2);
-  vout.info();
-  cout<<"----slice_put---"<<endl;
-  vector<float> p_val_vec = {1,2,3,4}; 
-  Tensor<float> p_val {p_val_vec,{2,2}};
-  v1.slice_put(/*dim*/1,1,3, p_val);
-  v1.info();
-}
-void ex13(){
   nc::indexing::Slice(1);
   // nc::indexing::Slice(0,1,std::monostate{});
   nc::indexing::Slice(1,0, None);
@@ -117,6 +99,25 @@ void ex13(){
   cout<<"----indexing[:]:  ";
   cout<<nc::indexing::Slice(nc::indexing::None,nc::indexing::None)<<endl;
 }
+void ex13(){
+  cout<<"-----nc::tensor---"<<endl;
+  vector<float> zz2 = {0.1,0.3,0.2,-1.1,2.3,6.1};
+  Tensor<float> v1 {zz2,{2,3}};
+  cout<<"v1\n";
+  v1.info();
+  cout<<"v1[0,0]:"<<v1.index({0,0})<<endl;
+  vector<int> id0 = {0,1};
+  cout<<"v1[0,1]:"<<v1.index(id0)<<endl;
+  cout<<"----slice---"<<endl;
+  Tensor<float> vout = v1.slice(/*dim*/1,1,2);
+  vout.info();
+  cout<<"----slice_put---"<<endl;
+  vector<float> p_val_vec = {1,2,3,4}; 
+  Tensor<float> p_val {p_val_vec,{2,2}};
+  v1.slice_put(/*dim*/1,1,3, p_val);
+  v1.info();
+}
+
 void ex14(){
   Tensor<float> t2 ({0.5,0.3,
                      0.1,-0.1}, {2,2});
