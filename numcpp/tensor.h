@@ -82,3 +82,4 @@ private:
 }
 
 #include "ten_init.h"
+#include "ten_shape.h"

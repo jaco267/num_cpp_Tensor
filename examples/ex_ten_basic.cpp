@@ -184,4 +184,16 @@ void ex16(){
   //or vector<Tensor<float>> stack_tensors = {t00,t11,t22}
   // s2 =hstack(stack_tensors)
   cout<<"s2:"<<s2; //* cout is same as s2.info()
+  cout<<"----vstack 2D----"<<endl; 
+  t00 = arange<float>(0,6).reshape({2,3});
+  t11 = arange<float>(-1,2).reshape({1,3});
+  t22 = arange<float>(100,106).reshape({2,3});
+  s2 = vstack({t00,t11,t22});
+  cout<<s2;
+  cout<<"----vstack 1D----"<<endl; 
+  t00 = arange<float>(0,4);
+  t11 = arange<float>(-1,3);
+  t22 = arange<float>(100,104);
+  s2 = vstack({t00,t11,t22});
+  cout<<s2;
 }
