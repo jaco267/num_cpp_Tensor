@@ -75,21 +75,32 @@ void ex13(){
   // nc::indexing::Slice(0,1,std::monostate{});
   nc::indexing::Slice(1,0, None);
   vector<float> zz2 = {0.1,0.3,0.2,
-                         1, 2 , 3, 
-
+                         1, 2 , 3,   //
                       -1.1,2.3,6.1,
-                         4, 5 , 6, 
-
+                         4, 5 , 6,   //
                       0.9, 0.8,-0.5,
-                        7, 8 ,  8 , 
-
+                        7, 8 ,  8 ,  //
                       -3, -2,-9,
                       10, 11, 12 };
+
   Tensor<float> v1 {zz2,{4,2,3}};
   cout<<"v1\n";
   v1.info();
   cout<<"----v1[2:4,1,:]---"<<endl;
   Tensor <float> out_v1 = v1.index({Slice(2,4),1,None});
+  out_v1.info();
+  cout<<"----v1[1:,1:, 0]"<<endl;
+  vector<nc_Slice_Index> index_list = {Slice(1),Slice(1)};
+  index_list.push_back(0);
+  cout<<"nc_Slice_index vector:  ";
+  print_nc_Slice_idx(index_list);
+  cout<<endl;
+  // for(int i=0; i<index_list.size(); i++){
+  //   cout<<index_list[i]<<",";  
+  // }
+  // cout<<endl;
+  
+  out_v1 = v1.index(index_list); 
   out_v1.info();
   cout<<"----v1[2,:,1:]=put0---"<<endl;
   Tensor<float> put0 = arange<float>(0,4).reshape({1,2,2});
