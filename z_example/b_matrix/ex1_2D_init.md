@@ -1,3 +1,4 @@
+####  init 2D matrix : zeros, eye
 
 ```sh
 python run.py --opt 1 --delete False

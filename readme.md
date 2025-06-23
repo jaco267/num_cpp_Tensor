@@ -1,20 +1,15 @@
 
-### simple binary matrix library in c++
+### simple Tensor library in c++
 
-It only have 2D matrix (vector<vector<int>>) and 1D vector<int>
-
-#### functions
-- nc_init.cpp: eye/arange/zeros_vec/zeros_mat
-- nc_rand.cpp: generate_gaussian_noise (mean, stddev) 
-- numcpp.cpp : kron/setdiff1d/sum_mat/bin_mat_mul/bin_to_dec
-  - dec_to_bin/ mat2comp_vec/comp_vec2mat/ swap_row/ add_row
+A simple Tensor library for N dimension tensor  
+, 2D matrix (ex. vector<vector<int>>)   
+and 1D vector  (ex. vector<int>)    
 
 ### exmaples 
 (for more example, see z_example/ folder) 
-- there is --opt 0~6 (vec_mat) and --opt 10~13 (tensor)
+- there is `--opt 0~6 (vec_mat)` and `--opt 10~13 (tensor)`
 
-
-####  init 2D matrix : zeros, eye
+####  run examples
 
 ```sh
 mkdir build 
@@ -25,82 +20,14 @@ cmake --build . --config Release
 
 #* if you are lazy, run.py is a script to compile and run the cpp files 
 pip install pyrallis  #python command line library
-python run.py  --delete False --opt 1
+#* run a tensor examples
+python run.py  --delete False --opt 10
 ```
 
-```
-zeros vector (3)
-0 0 0 
-zeros matrix (3,3)
-[[0,0,0,],
- [0,0,0,],
- [0,0,0,]]
-eye
-[[1,0,0,],
- [0,1,0,],
- [0,0,1,]]
-arange(1,5,1)
-1 2 3 4     
-```
-
-#### 1D vector and 2d matrix 
-- binary multiplication of 2 matrix, setdiff1d
-```sh
-python run.py --delete False --opt 2 
-```
-
-```
-F4
-[[1,0,0,0,],
- [1,1,0,0,],
- [1,0,1,0,],
- [1,1,1,1,]]
-sum(e1)=4
-(F4@e1)%2=
-[[1,0,0,0,],
- [1,1,0,0,],
- [1,0,1,0,],
- [1,1,1,1,]]
-h stack(A,B,C)
-[[1,0,0,0,1,0,0,0,1,0,0,0,],
- [1,1,0,0,0,1,0,0,1,1,0,0,],
- [1,0,1,0,0,0,1,0,1,0,1,0,],
- [1,1,1,1,0,0,0,1,1,1,1,1,]]
-setdiff1d (arange(0,5), [1,3])
-0 2 4 
-e1
-[[1,0,0,0,],
- [0,1,0,0,],
- [0,0,1,0,],
- [0,0,0,1,]]
-swap e1 row0 row1
-[[0,1,0,0,],
- [1,0,0,0,],
- [0,0,1,0,],
- [0,0,0,1,]]
-bin add e1 row 1 += row2
-[[0,1,0,0,],
- [1,0,1,0,],
- [0,0,1,0,],
- [0,0,0,1,]]
----bin_to_dec
-0 1 1 0 1 
---->13
-back to vec
-0 1 1 0 1 
-F4 to compressed int vector
-1 3 5 15 
-back to mat
-[[1,0,0,0,],
- [1,1,0,0,],
- [1,0,1,0,],
- [1,1,1,1,]]
-```
-
-### Ndim Tensor (work in progress)
+### Ndim Tensor 
 
 - for a tensor (dimision > 2)  
-- currently we only support print (info()) ,init (zeros,ones,arange..), indexing, reshape 
+- currently we only support print (info()) ,init (zeros,ones,arange..), indexing, reshape , add, minus, multiply, divide
 - tensor (matrix) multiplication and other functions (randn,kron...) may be added in the future 
 - some implementation (print tensor, strides) is based on [pynorch](https://github.com/lucasdelimanogueira/PyNorch)  
 - the fancy indexing : v1.index({Slice(2,4),1,None}) is similar to [libtorch](https://docs.pytorch.org/cppdocs/notes/tensor_indexing.html), but currently we don't support broadcasting and tensor indices (for example v1.index({v2, 1}, where v2 is a vector[1,3,5] is not support yet..))
