@@ -38,7 +38,7 @@ void ex1(){ //* init vector
   print_mat(z_m);
 }
 
-void ex2(){
+void ex2(){//* mat2vec, vec2mat
   vector<int> v0 = {0,1,2}; 
   vector<int> v1 = {0,1,2};
   cout<<"vec_equal: "<<vec_equal(v0,v1)<<endl;
@@ -52,7 +52,7 @@ void ex2(){
   print_mat(vec2mat<int>(z_m_v,3,3));
 }
 
-void ex3(){
+void ex3(){//* argsort/kron/hstack/setdiff1d
   vector<int> v1 = {3,0,-1, 2,9}; 
   vector<size_t> ind = argsort(v1); 
   cout<<"----argsort---"<<endl;
@@ -80,16 +80,27 @@ void ex3(){
   vector<int> out; 
   setdiff1d_rev(v2,v1,out);
   print_vec(out);
-
-
 }
 void ex4(){
-  vector<float> a = arange_vec<float>(0,4); 
+  vector<float> a = arange_vec<float>(1,5); 
+  cout<<"-----a----"<<endl; 
+  print_vec(a);
   vector<float> b = {-0.1, 3.6,2.1, 0.5};
+  cout<<"-----b----"<<endl; 
+  print_vec(b);
   cout<<"----sum_vec(b)---"<<endl<<sum_vec(b)<<endl;
   cout<<"----sum_vec(a,b)---"<<endl;
   print_vec(sum_vec(a,b));
-  cout<<"----mul_vec(b)---"<<endl<<mul_vec(b)<<endl; //-0.1*3.6*2.1*0.5
+  cout<<"----sum_vec(b, scalar=1)"<<endl; 
+  print_vec(sum_vec(b,1.0f));
+  cout<<"----mul_vec(a)---"<<endl<<mul_vec(a)<<endl; //-0.1*3.6*2.1*0.5
+  cout<<"-----mul_vec(a,b)----"<<endl; 
+  print_vec(mul_vec(a,b));
+  cout<<"-----mul_vec(a,scalar=2)"<<endl; 
+  print_vec(mul_vec(a,2.0f));
+}
+
+void ex5(){
   cout<<"---sum_mat(e1)---"<<endl;
   mat<int>e1 = eye<int>(4); 
   cout<<sum_mat(e1)<<endl;
@@ -98,7 +109,7 @@ void ex4(){
   print_mat(res);
 }
 
-void ex5(){
+void ex6(){
   mat<int>e1 = eye<int>(4); 
   cout<<"swap e1 row0 row1"<<endl; 
   swap_row(e1 , 0,1); 
@@ -121,11 +132,13 @@ void ex5(){
   cout<<"back to mat"<<endl; 
   print_mat(comp_vec2mat(e1_i, e1.size()));
 }
-
-void ex6(){
+void ex7(){
   cout<<"---unique_(v0)---"<<endl;
   vector<int> v0 = {1,1,0,2,3,3,3,-1,5,2,-1};
   vector<int> v_unique = unique_(v0); 
   
   print_vec(v_unique);
+}
+void ex8(){
+
 }

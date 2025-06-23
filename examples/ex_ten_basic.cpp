@@ -112,7 +112,11 @@ void ex14(){
   cout<<"t3----"<<endl;
   t3.info();
   cout<<"t4 = t2+t3------"<<endl;
-  Tensor<float> t4 = t2.add(t3); 
+  Tensor<float> t4 = t2.add(t3);
+  /*t4
+   0.5 1.3
+   2.1 2.9
+  */ 
   cout<<"t2 will not change----"<<endl;
   t2.info();
   cout<<"t4----"<<endl;
@@ -122,9 +126,47 @@ void ex14(){
   cout<<"t4 will not change---"<<endl;
   t4.info();
   cout<<"---t5---"<<endl;
+  /*t5
+  -0.5 -1.3
+  -2.1 -2.9
+  */
+  t5.info();
+  t5 = t4.minus(t5); 
+  /*t4 = t4 - t4 
+  1   2.6  
+  4.2 5.8
+  */
+  t5.info();
+  t5 = t5.minus(-1);
+  /*
+  2   3.6
+  5.2 6.8
+  */
   t5.info();
 }
 void ex15(){
+Tensor<float> t00 = arange<float>(0,6).reshape({2,-1});
+  Tensor<float> t11 = arange<float>(-1,5).reshape({2,-1});
+  cout<<"---t00---"<<endl;
+  /* 0 1 2
+     3 4 5*/
+  t00.info();
+  cout<<"---t11---"<<endl;
+  /* -1 0 1 
+      2 3 4*/
+  t11.info();
+  t00.mul(-1).info();
+  t00.mul(t11).info();
+  t00.add(10).info();
+  // t11.div1(); //* err becuase t11 have 0 so 1/t11 will have err
+  t00.add(10).div1().info();
+  /*  t11/(t00+10)
+  -1/10  0/11 1/12
+   2/13  3/14 4/15
+  */
+  t11.div(t00.add(10)).info();
+}
+void ex16(){
   //* hstack only support 1D and 2D (because its weird to do hstack at 3d or 4d, concatentate makes more sense)  
   //todo implemnt concatenate, implement vstack
   cout<<"---hstack 2D----"<<endl;

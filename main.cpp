@@ -51,6 +51,7 @@ int main(int argc, char *argv[]){
   }else if (run_opt==4){ex4();
   }else if (run_opt==5){ex5();
   }else if (run_opt==6){ex6();
+  }else if (run_opt==7){ex7();
   //*-----tensor-----
   }else if(run_opt==10){ex10();
   }else if(run_opt==11){ex11();
@@ -58,9 +59,10 @@ int main(int argc, char *argv[]){
   }else if(run_opt==13){ex13();
   }else if(run_opt==14){ex14();
   }else if(run_opt==15){ex15();
+  }else if(run_opt==16){ex16();
   }else{
      throw std::invalid_argument( 
-      "--opt should be 0~6 or 10~15" );
+      "--opt should be 0~7 or 10~16" );
   }
     return 0;
 }
