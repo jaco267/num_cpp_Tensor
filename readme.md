@@ -1,9 +1,7 @@
 
 ### simple Tensor library in c++
 
-A simple Tensor library for N dimension tensor  
-, 2D matrix (ex. `vector<vector<int>>`)   
-and 1D vector  (ex. `vector<int>`)    
+A simple Tensor library written in cpp (similar to numcpp/numpy), it also works for dimension larger than 2 (N dimension Tensor), 2D matrix (ex. `vector<vector<int>>`)   and 1D vector  (ex. `vector<int>`)    
 
 ### exmaples 
 (for more example, see z_example/ folder) 
