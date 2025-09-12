@@ -13,8 +13,8 @@ using std::vector;
 using std::cout;
 using std::endl;
 #include "nc_def.h"
-#include "nc_init.h"
-#include "nc_vec.h"
+#include "nc_vec/nc_init.h"
+#include "nc_vec/nc_vec.h"
 namespace nc{
 
 template <typename T>
@@ -124,5 +124,5 @@ Container unique_(const Container & in ){
 }
 
 
-#include "nc_rand.h"
+#include "nc_vec/nc_rand.h"
 #include "tensor.h"

@@ -83,6 +83,6 @@ private:
 };
 }
 
-#include "ten_init.h"
+#include "nc_ten/ten_init.h"
 #include "ten_shape.h"
 #include "ten_print.h"
