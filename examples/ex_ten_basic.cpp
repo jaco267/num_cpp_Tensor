@@ -208,63 +208,81 @@ void ex14(bool verbose){
   }
 }
 void ex15(bool verbose){
-Tensor<float> t00 = arange<float>(0,6).reshape({2,-1});
+  Tensor<float> t00 = arange<float>(0,6).reshape({2,-1});
   Tensor<float> t11 = arange<float>(-1,5).reshape({2,-1});
-  cout<<"---t00---"<<endl;
-  /* 0 1 2
-     3 4 5*/
-  t00.info();
-  cout<<"---t11---"<<endl;
-  /* -1 0 1 
-      2 3 4*/
-  t11.info();
-  t00.mul(-1).info();
-  t00.mul(t11).info();
-  t00.add(10).info();
-  // t11.div1(); //* err becuase t11 have 0 so 1/t11 will have err
-  t00.add(10).div1().info();
-  /*  t11/(t00+10)
-  -1/10  0/11 1/12
-   2/13  3/14 4/15
-  */
-  t11.div(t00.add(10)).info();
+  cout<<"ex15\n";
+  if(verbose){
+    cout<<"---t00---"<<t00;/* 0 1 2
+                               3 4 5*/
+    cout<<"---t11---"<<t11;/* -1 0 1 
+                               2 3 4*/
+    t00.mul(-1).info();
+    t00.mul(t11).info();
+    t00.add(10).info();
+    // t11.div1(); //* err becuase t11 have 0 so 1/t11 will have err
+    t00.add(10).div1().info();
+    /*  t11/(t00+10)
+    -1/10  0/11 1/12
+     2/13  3/14 4/15
+    */
+    t11.div(t00.add(10)).info();
+  }else{
+    t00.add(10).div1();
+    t11.div(t00.add(10));
+  }
 }
 void ex16(bool verbose){
   //* hstack only support 1D and 2D (because its weird to do hstack at 3d or 4d, concatentate makes more sense)  
   //todo implemnt concatenate, implement vstack
-  cout<<"---hstack 2D----"<<endl;
+  cout<<"ex16\n";
+
+  
   Tensor<float> t00 = arange<float>(0,6).reshape({2,-1});
   Tensor<float> t11 = arange<float>(-1,3).reshape({2,-1});
   Tensor<float> t22 = arange<float>(100,106).reshape({2,-1});
   Tensor<float> s2 = hstack({t00,t11,t22});
-  s2.info();
-  cout<<"---hstack 1D----"<<endl;
+  if (verbose){
+    cout<<"---hstack 2D----"<<endl;
+    s2.info();
+  }
   t00 = arange<float>(0,3); 
   t11 = arange<float>(-1,3); 
   t22 = arange<float>(100,106);
   s2 = hstack({t00,t11,t22}); 
   //or vector<Tensor<float>> stack_tensors = {t00,t11,t22}
   // s2 =hstack(stack_tensors)
-  cout<<"s2:"<<s2; //* cout is same as s2.info()
-  cout<<"----vstack 2D----"<<endl; 
+  if(verbose){
+    cout<<"---hstack 1D----"<<endl;
+    cout<<"s2:"<<s2; //* cout is same as s2.info()  
+  }
   t00 = arange<float>(0,6).reshape({2,3});
   t11 = arange<float>(-1,2).reshape({1,3});
   t22 = arange<float>(100,106).reshape({2,3});
   s2 = vstack({t00,t11,t22});
-  cout<<s2;
-  cout<<"----vstack 1D----"<<endl; 
+  if(verbose){
+    cout<<"----vstack 2D----"<<endl; 
+    cout<<s2;
+  } 
   t00 = arange<float>(0,4);
   t11 = arange<float>(-1,3);
   t22 = arange<float>(100,104);
   s2 = vstack({t00,t11,t22});
-  cout<<s2;
+  if(verbose){
+    cout<<"----vstack 1D----"<<endl;
+    cout<<s2;
+  }
 }
 void ex17(bool verbose){
+  cout<<"ex17\n";
   Tensor<float> t0 = arange<float>(100,106).reshape({2,-1});
   t0.index_put({0,1}, 200.0f);
   Tensor<float> t1 = max(t0, /*dim*/0);
-  cout<<"t0---\n"<<t0;
-  cout<<"max(t0,dim=0)---\n"<<t1;
+  if(verbose){
+    cout<<"t0---\n"<<t0;
+    cout<<"max(t0,dim=0)---\n"<<t1;
+  }
   t1 = max(t0, /*dim*/1);
-  cout<<"max(t0,dim=1)---\n"<<t1;
+  if(verbose){
+    cout<<"max(t0,dim=1)---\n"<<t1;
+  }
 }

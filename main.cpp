@@ -70,7 +70,7 @@ int main(int argc, char *argv[]){
      ex5(false); ex6(false); ex7(false);
      ex10(false);ex11(false);ex12(false);ex13(false);ex14(false);
      ex15(false);ex16(false);ex17(false);
-     ex18();
+     ex18(false);
   }
     return 0;
 }
