@@ -1,4 +1,4 @@
-#include "ten_print.h"
+#include "nc_ten/ten_print.h"
 namespace nc{
 void print_nc_Slice_idx(nc_Slice_Index index){
   std::visit(PrintVisitor{}, index);

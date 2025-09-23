@@ -19,6 +19,7 @@ template <typename T>
 void Tensor<T>::extract_slice_index(
   const vector<nc_Slice_Index>& slice_indices,
   mat<int>& new_slice){
+
   std::vector<nc_Slice_Index> processed_indices;
   for (const auto& idx : slice_indices) {
       processed_indices.push_back(
@@ -69,6 +70,8 @@ void Tensor<T>::extract_slice_index(
 }
 template <typename T>
 T Tensor<T>::index(vector<int> indices){
+  if (device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda index yet..." );
+  }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
   int index = 0;  
   for (int i=0; i<ndim_; i++){
       index+= indices[i]*strides_[i];  
@@ -79,6 +82,8 @@ T Tensor<T>::index(vector<int> indices){
 }
 template <typename T>
 Tensor<T> Tensor<T>::index(const vector<nc_Slice_Index>& slice_indices){
+  if (device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda index yet..." );
+  }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
   ASSERT_THROW(slice_indices.size()==shape_.size(),"mult size should be equal to shape size");
   mat<int> new_slice;   //store the [start:end,start:end..]
   extract_slice_index(slice_indices,new_slice);
@@ -117,6 +122,8 @@ void Tensor<T>::index_put(
   const vector<nc_Slice_Index>& slice_indices,
   T  in_data
 ){
+  if (device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda index put yet..." );
+  }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
   ASSERT_THROW(slice_indices.size()==shape_.size(),"mult size should be equal to shape size");
   mat<int> new_slice;   //store the [start:end,start:end..]
   extract_slice_index(slice_indices,new_slice);
@@ -148,6 +155,8 @@ void Tensor<T>::index_put(
   const vector<nc_Slice_Index>& slice_indices,
   const Tensor<T> & in_data
 ){
+  if (device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda index_put yet..." );
+  }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
   ASSERT_THROW(slice_indices.size()==shape_.size(),"mult size should be equal to shape size");
   mat<int> new_slice;   //store the [start:end,start:end..]
   extract_slice_index(slice_indices,new_slice);
@@ -187,6 +196,8 @@ void Tensor<T>::index_put(
 }
 template <typename T>
 Tensor<T> Tensor<T>::slice(int dim, int start, int end){
+  if (device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda slice yet..." );
+  }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
   // check for valid dimension 
   if (dim<0 || dim >= (int) shape_.size()){throw std::out_of_range( "Dim out of range" );}
   // check for valid start/end indices 
@@ -221,6 +232,8 @@ Tensor<T> Tensor<T>::slice(int dim, int start, int end){
 }  
 template <typename T>
 void Tensor<T>::slice_put(int dim, int start, int end, Tensor<T> in_data){
+  if (device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda slice_put yet..." );
+  }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
   // check for valid dimension 
   if (dim<0 || dim >= (int)shape_.size()){throw std::out_of_range( "Dim out of range" );}
   // check for valid start/end indices 

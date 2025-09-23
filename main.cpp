@@ -29,8 +29,6 @@ using namespace nc;
 
 #include "examples.h"
 
-
-
 //*./main -i -o file.txt -lr -x 'hero'
 int main(int argc, char *argv[]){
   int opt; 
@@ -65,12 +63,14 @@ int main(int argc, char *argv[]){
   }else if(run_opt==17){ex17();
   //todo  cuda
   }else if(run_opt==18){ex18();
+  }else if(run_opt==20){ex20();
   }else{
      ex0(false); ex1(false); ex2(false); ex3(false); ex4(false);
      ex5(false); ex6(false); ex7(false);
      ex10(false);ex11(false);ex12(false);ex13(false);ex14(false);
      ex15(false);ex16(false);ex17(false);
-     ex18(false);
+     //* cuda
+     ex18(false);ex20(false);
   }
     return 0;
 }

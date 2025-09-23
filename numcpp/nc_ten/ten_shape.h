@@ -8,6 +8,7 @@ Tensor<T> hstack(const std::initializer_list<Tensor<T>> tensors) {
 }
 template <typename T>
 Tensor<T> hstack(const vector<Tensor<T>>& tensors) {
+  
   if (tensors.empty()) {return Tensor<T>();}// Check if there are tensors to stack
   size_t ndim = tensors[0].shape_.size();
   for (const auto& tensor : tensors) {// Check all tensors have same num of dim
@@ -17,6 +18,8 @@ Tensor<T> hstack(const vector<Tensor<T>>& tensors) {
     vector<T> out_data;
     int tot_len = 0;
     for (const auto& tensor : tensors) {
+        if (tensor.device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda hstack yet..." );
+        }else{ASSERT_THROW(tensor.device_ == "cpu","unknown device\n");}
         tot_len += (int) tensor.data_.size();
         out_data.insert(out_data.end(), tensor.data_.begin(), tensor.data_.end());
     }
@@ -46,6 +49,8 @@ Tensor<T> hstack(const vector<Tensor<T>>& tensors) {
     }
     for (size_t outer = 0; outer < outer_dim_size; ++outer) {
       for (const auto& tensor : tensors) {
+        if (tensor.device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda hstack yet..." );
+        }else{ASSERT_THROW(tensor.device_ == "cpu","unknown device\n");}
         const auto& t_shape = tensor.shape_;
         size_t t_inner_size = t_shape[1];
         size_t offset = outer * t_inner_size; 
@@ -74,6 +79,8 @@ Tensor<T> vstack(const vector<Tensor<T>>& tensors) {
     size_t total_rows = tensors.size();
     size_t cols = tensors[0].data_.size();
     for (const auto& tensor : tensors) {// Check all 1D tensors have same length
+        if (tensor.device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda vstack yet..." );
+        }else{ASSERT_THROW(tensor.device_ == "cpu","unknown device\n");}
         ASSERT_THROW(tensor.data_.size() == cols,"All 1D tensors must have same length for vstack");
         out_data.insert(out_data.end(), tensor.data_.begin(), tensor.data_.end());
     }
@@ -99,6 +106,8 @@ Tensor<T> vstack(const vector<Tensor<T>>& tensors) {
     // For vstack, we can simply concat all data sequentially
     // since row-major order means rows are contiguous in memory
     for (const auto& tensor : tensors) {
+        if (tensor.device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda vstack yet..." );
+        }else{ASSERT_THROW(tensor.device_ == "cpu","unknown device\n");}
         out_data.insert(out_data.end(), tensor.data_.begin(), tensor.data_.end());
     }
     return Tensor<T>(out_data, out_shape);
@@ -108,6 +117,8 @@ Tensor<T> vstack(const vector<Tensor<T>>& tensors) {
 
 template <typename T>
 Tensor<T> max(const Tensor<T>& input, int dim, bool keepdim = false) {
+    if (input.device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda max yet..." );
+    }else{ASSERT_THROW(input.device_ == "cpu","unknown device\n");}
     // Validate input dimension
     if (dim < 0 || dim >= static_cast<int>(input.shape_.size())) {
         throw std::invalid_argument("Dimension out of range");
