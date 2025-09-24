@@ -1,4 +1,4 @@
-file(GLOB_RECURSE SRCS *.cpp)
+file(GLOB_RECURSE SRCS "*.cpp" "*.cu")
 
 add_library(numcpp ${SRCS})
 

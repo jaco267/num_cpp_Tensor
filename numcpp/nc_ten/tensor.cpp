@@ -19,6 +19,7 @@ void Tensor<T>::init_tensor(const vector<T>& data, const vector<int>&shape,
   shape_ = shape;
   if(device == "cpu"){
     data_ = data;
+    data_cu_ = nullptr;
   }else if (device == "cuda"){
     cudaMalloc((void**)&data_cu_, data.size() * sizeof(T));
     // Copy data from host vector to device buffer
@@ -107,13 +108,23 @@ Tensor<T> Tensor<T>::reshape(vector<int> new_shape){
 }
 
 template <typename T>
-void Tensor<T>::info() {
-  if (device_ == "cuda"){ throw std::invalid_argument( "haven't implement cuda info yet..." );
-  }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
+void Tensor<T>::info(bool verbose) {
+  ASSERT_THROW((device_ == "cpu")||(device_=="cuda"),"unknown device\n");
+  if (device_ == "cuda"){
+    
+    Tensor<T> t1_cpu_ver = *this;  
+    t1_cpu_ver.to("cpu");  //* t1_cpu_ver .data_cu is freed
+    t1_cpu_ver.info(false);
+    cout<<", device:"<<device_<<endl;
+    return ;
+  }
   print();
   cout<<" n_dim:"<<ndim_<<", size:"<<size_<<", strides:";
   print_vec(strides_,0);
-  cout<<", shape:"; print_vec(shape_);
+  cout<<", shape:"; print_vec(shape_,0);
+  if(verbose){
+    cout<<", device:"<<device_<<endl;
+  }
 }
 template <typename T>
 void Tensor<T>::print() {

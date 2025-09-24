@@ -18,7 +18,7 @@ void cpu_to_cuda(Tensor<T>* tensor) { //* will free cpu memery and allocate to n
     tensor->data_.clear();
     tensor->device_ = "cuda";
 
-    cout<<"Successfully sent tensor to: "<< tensor->device_<<endl;
+    // cout<<"Successfully sent tensor to: "<< tensor->device_<<endl;
 }
 template <typename T>
 void cuda_to_cpu(Tensor<T>* tensor) { //* will free cuda memery and allocate to new cpu memeory 
@@ -35,6 +35,6 @@ void cuda_to_cpu(Tensor<T>* tensor) { //* will free cuda memery and allocate to 
     tensor->data_cu_ = nullptr;
     tensor->device_ = "cpu";
 
-    cout<<"Successfully sent tensor to: "<< tensor->device_<<endl;
+    // cout<<"Successfully sent tensor to: "<< tensor->device_<<endl;
 }
 }

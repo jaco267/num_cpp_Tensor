@@ -33,7 +33,9 @@ public:
   void init_tensor(const vector<T>& data, const vector<int>&shape, string device="cpu");
   //*-------------------------------------------------------------------------
   ~Tensor(){  //* destructor  clear cuda memory if device is cuda  //* so it works like RAII wrapper class, (ex vector class)
-    if(device_ == "cuda"){clear_cu();}// cout<<"todo cudaFree"<<endl; 
+    if(device_ == "cuda"){clear_cu();
+      cout<<"Free cuda memory in tensor destructor"<<endl;
+    }// cout<<"todo cudaFree"<<endl; 
   }
   void clear_cu();
   void to(string device);
@@ -41,7 +43,7 @@ public:
   Tensor(const Tensor<T>& other) : shape_(other.shape_),data_(other.data_), device_(other.device_),
     strides_(other.strides_),ndim_(other.ndim_), size_(other.size_)
   { // copy CPU data //*copy constructor  ex. Tensor<float> a = b; 
-      cout<<"copy construct  haven't test yet, will vector<T> work?"<<endl;
+      // cout<<"copy construct  haven't test yet, will vector<T> work?"<<endl;
       if (other.device_ == "cuda" && other.data_cu_ != nullptr) {// allocate GPU memory and copy
           cudaMalloc((void**)&data_cu_, size_*sizeof(T));
           cudaMemcpy(data_cu_, other.data_cu_, size_*sizeof(T), cudaMemcpyDeviceToDevice);
@@ -52,18 +54,15 @@ public:
     cout<<"carefull haven't test yet, will vector<T> work?"<<endl;
     if (this == &other) return *this; // self-assignment check
     // Free old CUDA memory if needed
-    if (device_ == "cuda" && data_cu_ != nullptr) {
-        cudaFree(data_cu_);
-    }
+    if (device_ == "cuda" && data_cu_ != nullptr) { cudaFree(data_cu_);}
     // Copy metadata and CPU data
     shape_ = other.shape_; strides_ = other.strides_; ndim_ = other.ndim_;   
     size_ = other.size_;   device_ = other.device_;   data_ = other.data_;
     // Copy CUDA data if needed
     if (other.device_ == "cuda" && other.data_cu_ != nullptr) {
-        cudaMalloc(&data_cu_, size_ * sizeof(T));
+        cudaMalloc((void**)&data_cu_, size_ * sizeof(T));
         cudaMemcpy(data_cu_, other.data_cu_, size_ * sizeof(T), cudaMemcpyDeviceToDevice);
-    } else {   data_cu_ = nullptr;
-    }
+    } else {   data_cu_ = nullptr;}
     return *this;
   }
   
@@ -90,11 +89,8 @@ public:
   Tensor<T> reshape(std::initializer_list<int> new_shape){
     return reshape(vector<int>(new_shape));
   };
-  void info() ;
-  friend std::ostream& operator<<(std::ostream& os, Tensor& ten) {
-      ten.info();
-      return os;
-  }
+  void info(bool verbose = true) ;
+  friend std::ostream& operator<<(std::ostream& os, Tensor& ten) {ten.info(); return os;}
   void print() ;
   string print_recur(int depth, vector<int> index) ;
   vector<T> toVec();
