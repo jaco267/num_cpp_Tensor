@@ -27,7 +27,8 @@ void ex10(bool verbose){ //* init Tensor : zeros, ones arange,  reshape, toVec, 
     cout<<t3;
     cout<<"---ones---"<<endl;
   }  
-  t3 = ones<float> ({2,2});
+  t3 = ones<float> ({2,2});  //* will call move 
+
   if (verbose){
     cout<<t3;
     cout<<"--arange--"<<endl;

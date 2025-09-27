@@ -9,27 +9,18 @@ Tensor<T> Tensor<T>::add(const Tensor<T>& a){
   ASSERT_THROW(vec_equal(a.shape_, shape_),"add:currently a need to have same shape");
   if (device_ == "cuda"){
     ASSERT_THROW(a.device_ == "cuda","add: tensor should be on same device\n");
-    int n = size_;
     Tensor<T> out;
-    // add_kernel<<<blocks, threads>>>(
-    //   data_cu_,       // assuming device_buffer<T> or raw pointer
-    //   a.data_cu_,
-    //   out.data_cu_,
-    //   n
-    // );
-    // cout<<"size : "<<size_<<endl;
-    cudaMalloc((void**)&out.data_cu_, n);
+    cudaMalloc((void**)&out.data_cu_, size_*sizeof(T));
     ///todo weird when change <T> to <int> we got error 
-    launch_add_kernel<T>(data_cu_, a.data_cu_, out.data_cu_, n);
+    launch_add_kernel<T>(data_cu_, a.data_cu_, out.data_cu_, size_);
     cudaDeviceSynchronize();
-    out.device_ = "cuda";
+    
     out.shape_ = shape_; 
-    out.size_ = size_; 
-    out.ndim_ = ndim_;
+    out.device_ = "cuda";
     out.strides_ = strides_;
-
+    out.ndim_ = ndim_;
+    out.size_ = size_; 
     return out; 
-    throw std::invalid_argument( "haven't implement cuda add yet..." );
   }else{ASSERT_THROW(device_ == "cpu","unknown device\n");}
   ASSERT_THROW(a.data_.size()==data_.size(),"add: data should have same size");
   vector<T> out_v = sum_vec<T>(a.data_, data_);  

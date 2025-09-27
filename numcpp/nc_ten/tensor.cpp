@@ -14,9 +14,7 @@ template <typename T>
 void Tensor<T>::init_tensor(const vector<T>& data, const vector<int>&shape,
   string device
 ){
-  device_ = device;  
-  
-  shape_ = shape;
+  device_ = device;  shape_ = shape;
   if(device == "cpu"){
     data_ = data;
     data_cu_ = nullptr;

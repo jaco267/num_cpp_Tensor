@@ -34,7 +34,7 @@ public:
   //*-------------------------------------------------------------------------
   ~Tensor(){  //* destructor  clear cuda memory if device is cuda  //* so it works like RAII wrapper class, (ex vector class)
     if(device_ == "cuda"){clear_cu();
-      cout<<"Free cuda memory in tensor destructor"<<endl;
+      // cout<<"Free cuda memory in tensor destructor"<<endl;
     }// cout<<"todo cudaFree"<<endl; 
   }
   void clear_cu();
@@ -45,7 +45,7 @@ public:
   { // copy CPU data //*copy constructor  ex. Tensor<float> a = b; 
       // cout<<"copy construct  haven't test yet, will vector<T> work?"<<endl;
       if (other.device_ == "cuda" && other.data_cu_ != nullptr) {// allocate GPU memory and copy
-          cudaMalloc((void**)&data_cu_, size_*sizeof(T));
+          cudaMalloc((void**)&data_cu_, size_*sizeof(T)); //todo carefull malloc memcpy 
           cudaMemcpy(data_cu_, other.data_cu_, size_*sizeof(T), cudaMemcpyDeviceToDevice);
       } else { data_cu_ = nullptr;} // if CPU, or no data
   }
@@ -56,28 +56,28 @@ public:
     // Free old CUDA memory if needed
     if (device_ == "cuda" && data_cu_ != nullptr) { cudaFree(data_cu_);}
     // Copy metadata and CPU data
-    shape_ = other.shape_; strides_ = other.strides_; ndim_ = other.ndim_;   
-    size_ = other.size_;   device_ = other.device_;   data_ = other.data_;
+    shape_ = other.shape_; data_ = other.data_; device_ = other.device_;  
+    strides_ = other.strides_;  ndim_ = other.ndim_; size_ = other.size_;   
     // Copy CUDA data if needed
     if (other.device_ == "cuda" && other.data_cu_ != nullptr) {
-        cudaMalloc((void**)&data_cu_, size_ * sizeof(T));
+        cudaMalloc((void**)&data_cu_, size_ * sizeof(T)); //todo carefull malloc memcpy 
         cudaMemcpy(data_cu_, other.data_cu_, size_ * sizeof(T), cudaMemcpyDeviceToDevice);
     } else {   data_cu_ = nullptr;}
     return *this;
   }
-  
+  //todoo add a func called init attr  
   Tensor<T>& operator=(Tensor<T>&& other) noexcept {//? Move assignment
     //?ex Tensor<float> d = std::move(a);
-    cout<<"carefull haven't test yet, will vector<T> work?"<<endl;
+    //* or just //t3 = ones<float> ({2,2}); 
     if (this != &other) {
         if (device_ == "cuda" && data_cu_ != nullptr) {
             cudaFree(data_cu_);
         }
         shape_ = std::move(other.shape_);
+        device_ = std::move(other.device_);
         strides_ = std::move(other.strides_);
         ndim_ = other.ndim_;
         size_ = other.size_;
-        device_ = std::move(other.device_);
         data_ = std::move(other.data_);
         data_cu_ = other.data_cu_;
         other.data_cu_ = nullptr;
@@ -128,7 +128,6 @@ public:
   //*-----------------------
 public:
   vector<int> shape_;  
-
   vector<T> data_; 
   T*  data_cu_; 
   string device_; //todo
